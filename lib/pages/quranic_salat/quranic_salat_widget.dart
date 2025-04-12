@@ -13,6 +13,9 @@ export 'quranic_salat_model.dart';
 class QuranicSalatWidget extends StatefulWidget {
   const QuranicSalatWidget({super.key});
 
+  static String routeName = 'quranicSalat';
+  static String routePath = '/quranicSalat';
+
   @override
   State<QuranicSalatWidget> createState() => _QuranicSalatWidgetState();
 }
@@ -83,7 +86,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                       FlutterFlowTheme.of(context).headlineMediumFamily),
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -96,15 +99,15 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(12.0, 18.0, 12.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(12.0, 18.0, 12.0, 0.0),
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(
+              padding: EdgeInsets.fromLTRB(
                 0,
                 0,
                 0,
@@ -150,7 +153,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'SALAT FAJR (DAWN)',
                             style: FlutterFlowTheme.of(context)
@@ -158,7 +161,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -228,7 +231,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'SALAT WUSTAA (MIDDLE)',
                             style: FlutterFlowTheme.of(context)
@@ -236,7 +239,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -306,7 +309,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'SALAT ISHA (NIGHT)',
                             style: FlutterFlowTheme.of(context)
@@ -314,7 +317,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -384,9 +387,9 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                       ]
-                          .divide(const SizedBox(height: 12.0))
-                          .addToStart(const SizedBox(height: 8.0))
-                          .addToEnd(const SizedBox(height: 8.0)),
+                          .divide(SizedBox(height: 12.0))
+                          .addToStart(SizedBox(height: 8.0))
+                          .addToEnd(SizedBox(height: 8.0)),
                     ),
                     theme: ExpandableThemeData(
                       tapHeaderToExpand: true,
@@ -436,7 +439,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'ABLUTION',
                             style: FlutterFlowTheme.of(context)
@@ -444,7 +447,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -514,7 +517,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'FACE QIBLA',
                             style: FlutterFlowTheme.of(context)
@@ -522,7 +525,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -592,7 +595,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'STAND HUMBLY BEFORE GOD',
                             style: FlutterFlowTheme.of(context)
@@ -600,7 +603,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -670,7 +673,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'DON\'T APPROACH SALAT LAZILY',
                             style: FlutterFlowTheme.of(context)
@@ -678,7 +681,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -748,7 +751,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'TAKE REFUGE IN GOD',
                             style: FlutterFlowTheme.of(context)
@@ -756,7 +759,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -826,9 +829,9 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                       ]
-                          .divide(const SizedBox(height: 12.0))
-                          .addToStart(const SizedBox(height: 8.0))
-                          .addToEnd(const SizedBox(height: 8.0)),
+                          .divide(SizedBox(height: 12.0))
+                          .addToStart(SizedBox(height: 8.0))
+                          .addToEnd(SizedBox(height: 8.0)),
                     ),
                     theme: ExpandableThemeData(
                       tapHeaderToExpand: true,
@@ -878,7 +881,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'CALL UPON GOD',
                             style: FlutterFlowTheme.of(context)
@@ -886,7 +889,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -956,7 +959,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'EXAMPLE',
                             style: FlutterFlowTheme.of(context)
@@ -964,7 +967,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -1034,9 +1037,9 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                       ]
-                          .divide(const SizedBox(height: 12.0))
-                          .addToStart(const SizedBox(height: 8.0))
-                          .addToEnd(const SizedBox(height: 8.0)),
+                          .divide(SizedBox(height: 12.0))
+                          .addToStart(SizedBox(height: 8.0))
+                          .addToEnd(SizedBox(height: 8.0)),
                     ),
                     theme: ExpandableThemeData(
                       tapHeaderToExpand: true,
@@ -1086,7 +1089,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'COMMEMORATE GOD ALONE',
                             style: FlutterFlowTheme.of(context)
@@ -1094,7 +1097,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -1164,7 +1167,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'STAND, BOW & PROSTRARE',
                             style: FlutterFlowTheme.of(context)
@@ -1172,7 +1175,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -1242,7 +1245,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           child: Text(
                             'EXAMPLE COMMEMORATION VERSES',
                             style: FlutterFlowTheme.of(context)
@@ -1250,7 +1253,7 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color: const Color(0xFFF4AF0F),
+                                  color: Color(0xFFF4AF0F),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -1321,9 +1324,9 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                       ]
-                          .divide(const SizedBox(height: 12.0))
-                          .addToStart(const SizedBox(height: 8.0))
-                          .addToEnd(const SizedBox(height: 8.0)),
+                          .divide(SizedBox(height: 12.0))
+                          .addToStart(SizedBox(height: 8.0))
+                          .addToEnd(SizedBox(height: 8.0)),
                     ),
                     theme: ExpandableThemeData(
                       tapHeaderToExpand: true,
@@ -1432,9 +1435,9 @@ class _QuranicSalatWidgetState extends State<QuranicSalatWidget> {
                           },
                         ),
                       ]
-                          .divide(const SizedBox(height: 12.0))
-                          .addToStart(const SizedBox(height: 8.0))
-                          .addToEnd(const SizedBox(height: 8.0)),
+                          .divide(SizedBox(height: 12.0))
+                          .addToStart(SizedBox(height: 8.0))
+                          .addToEnd(SizedBox(height: 8.0)),
                     ),
                     theme: ExpandableThemeData(
                       tapHeaderToExpand: true,

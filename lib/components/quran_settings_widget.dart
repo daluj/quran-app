@@ -30,6 +30,7 @@ class _QuranSettingsWidgetState extends State<QuranSettingsWidget> {
     _model.readingModeValue = FFAppState().readingMode;
     _model.showArabicValue = FFAppState().showArabicText;
     _model.showTranslationValue = FFAppState().showTranslation;
+    _model.downloadAudioValue = FFAppState().downloadAudio;
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -47,7 +48,7 @@ class _QuranSettingsWidgetState extends State<QuranSettingsWidget> {
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -59,16 +60,8 @@ class _QuranSettingsWidgetState extends State<QuranSettingsWidget> {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              FlutterFlowTheme.of(context).primary,
-              FlutterFlowTheme.of(context).tertiary
-            ],
-            stops: const [0.0, 1.0],
-            begin: const AlignmentDirectional(0.0, -1.0),
-            end: const AlignmentDirectional(0, 1.0),
-          ),
-          borderRadius: const BorderRadius.only(
+          color: FlutterFlowTheme.of(context).secondary,
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(16.0),
@@ -76,7 +69,7 @@ class _QuranSettingsWidgetState extends State<QuranSettingsWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -122,10 +115,10 @@ class _QuranSettingsWidgetState extends State<QuranSettingsWidget> {
                         activeColor: FlutterFlowTheme.of(context).secondaryText,
                       ),
                     ),
-                  ].divide(const SizedBox(width: 36.0)),
+                  ].divide(SizedBox(width: 36.0)),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Text(
                     'Text Settings',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -154,7 +147,7 @@ class _QuranSettingsWidgetState extends State<QuranSettingsWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                decoration: const BoxDecoration(),
+                                decoration: BoxDecoration(),
                               ),
                             ],
                           ),
@@ -397,7 +390,149 @@ class _QuranSettingsWidgetState extends State<QuranSettingsWidget> {
                     ),
                   ],
                 ),
-              ].divide(const SizedBox(height: 12.0)).around(const SizedBox(height: 12.0)),
+                Align(
+                  alignment: AlignmentDirectional(-1.0, 0.0),
+                  child: Text(
+                    'Audio Settings',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          fontSize: 18.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                        ),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Download Audio',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyLargeFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .bodyLargeFamily),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Switch.adaptive(
+                            value: _model.downloadAudioValue!,
+                            onChanged: (newValue) async {
+                              safeSetState(
+                                  () => _model.downloadAudioValue = newValue);
+                              if (newValue) {
+                                FFAppState().downloadAudio = true;
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Download Audio'),
+                                      content: Text(
+                                          'Audio will be downloaded to your device once it is played'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                FFAppState().downloadAudio = false;
+                              }
+                            },
+                            activeColor:
+                                FlutterFlowTheme.of(context).secondaryText,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Seconds between words',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyLargeFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .bodyLargeFamily),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Slider(
+                            activeColor:
+                                FlutterFlowTheme.of(context).secondaryText,
+                            inactiveColor: FlutterFlowTheme.of(context).accent4,
+                            min: 0.0,
+                            max: 6.0,
+                            value: _model.wordSpaceSliderValue ??=
+                                FFAppState().wordSpaceSeconds.toDouble(),
+                            label: _model.wordSpaceSliderValue?.toString(),
+                            divisions: 6,
+                            onChanged: (newValue) async {
+                              safeSetState(
+                                  () => _model.wordSpaceSliderValue = newValue);
+                              FFAppState().wordSpaceSeconds =
+                                  (_model.wordSpaceSliderValue!).round();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ].divide(SizedBox(height: 12.0)).around(SizedBox(height: 12.0)),
             ),
           ),
         ),

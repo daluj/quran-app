@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +14,9 @@ class QuranVersesWidget extends StatefulWidget {
     int? verseId,
     required this.translation,
     bool? showDivider,
-  })  : suraId = suraId ?? 0,
-        verseId = verseId ?? 0,
-        showDivider = showDivider ?? true;
+  })  : this.suraId = suraId ?? 0,
+        this.verseId = verseId ?? 0,
+        this.showDivider = showDivider ?? true;
 
   final int suraId;
   final int verseId;
@@ -65,14 +66,14 @@ class _QuranVersesWidgetState extends State<QuranVersesWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 9.0, 16.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 9.0, 16.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Flexible(
                       child: Align(
-                        alignment: const AlignmentDirectional(-1.0, 0.0),
+                        alignment: AlignmentDirectional(-1.0, 0.0),
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
@@ -109,7 +110,7 @@ class _QuranVersesWidgetState extends State<QuranVersesWidget> {
                     ),
                     Flexible(
                       child: Align(
-                        alignment: const AlignmentDirectional(1.0, 0.0),
+                        alignment: AlignmentDirectional(1.0, 0.0),
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
@@ -147,45 +148,58 @@ class _QuranVersesWidgetState extends State<QuranVersesWidget> {
                   ],
                 ),
               ),
-              Align(
-                alignment: const AlignmentDirectional(-1.0, 0.0),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(
-                        'Quran',
-                        queryParameters: {
-                          'surahId': serializeParam(
-                            widget.suraId,
-                            ParamType.int,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 9.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed(
+                      QuranWidget.routeName,
+                      queryParameters: {
+                        'surahId': serializeParam(
+                          widget.suraId,
+                          ParamType.int,
+                        ),
+                        'verseId': serializeParam(
+                          widget.verseId,
+                          ParamType.int,
+                        ),
+                      }.withoutNulls,
+                    );
+                  },
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: 48.0,
+                    ),
+                    decoration: BoxDecoration(),
+                    child: Align(
+                      alignment: AlignmentDirectional(-1.0, 0.0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            widget.translation,
+                            '\"\"',
                           ),
-                          'verseId': serializeParam(
-                            widget.verseId,
-                            ParamType.int,
-                          ),
-                        }.withoutNulls,
-                      );
-                    },
-                    child: Text(
-                      valueOrDefault<String>(
-                        widget.translation,
-                        '\"\"',
+                          textAlign: TextAlign.justify,
+                          style: FlutterFlowTheme.of(context)
+                              .labelLarge
+                              .override(
+                                fontFamily: 'GFS Didot',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize:
+                                    FFAppState().translationFontSize.toDouble(),
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.normal,
+                                useGoogleFonts: GoogleFonts.asMap()
+                                    .containsKey('GFS Didot'),
+                              ),
+                        ),
                       ),
-                      textAlign: TextAlign.justify,
-                      style: FlutterFlowTheme.of(context).labelLarge.override(
-                            fontFamily: 'GFS Didot',
-                            fontSize:
-                                FFAppState().translationFontSize.toDouble(),
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
-                            useGoogleFonts:
-                                GoogleFonts.asMap().containsKey('GFS Didot'),
-                          ),
                     ),
                   ),
                 ),
@@ -198,7 +212,7 @@ class _QuranVersesWidgetState extends State<QuranVersesWidget> {
                     color: FlutterFlowTheme.of(context).primaryText,
                   ),
                 ),
-            ].divide(const SizedBox(height: 9.0)),
+            ].divide(SizedBox(height: 9.0)),
           ),
         ),
       ),

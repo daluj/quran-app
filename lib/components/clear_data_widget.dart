@@ -39,7 +39,7 @@ class _ClearDataWidgetState extends State<ClearDataWidget> {
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -50,16 +50,8 @@ class _ClearDataWidgetState extends State<ClearDataWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              FlutterFlowTheme.of(context).primary,
-              FlutterFlowTheme.of(context).tertiary
-            ],
-            stops: const [0.0, 1.0],
-            begin: const AlignmentDirectional(0.0, -1.0),
-            end: const AlignmentDirectional(0, 1.0),
-          ),
-          borderRadius: const BorderRadius.only(
+          color: FlutterFlowTheme.of(context).secondary,
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(16.0),
@@ -67,7 +59,7 @@ class _ClearDataWidgetState extends State<ClearDataWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -101,7 +93,7 @@ class _ClearDataWidgetState extends State<ClearDataWidget> {
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
                         ),
-                        duration: const Duration(milliseconds: 4000),
+                        duration: Duration(milliseconds: 4000),
                         backgroundColor: FlutterFlowTheme.of(context).primary,
                       ),
                     );
@@ -133,7 +125,7 @@ class _ClearDataWidgetState extends State<ClearDataWidget> {
                               ),
                         ),
                       ),
-                    ].divide(const SizedBox(width: 12.0)),
+                    ].divide(SizedBox(width: 12.0)),
                   ),
                 ),
                 InkWell(
@@ -157,7 +149,7 @@ class _ClearDataWidgetState extends State<ClearDataWidget> {
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
                         ),
-                        duration: const Duration(milliseconds: 4000),
+                        duration: Duration(milliseconds: 4000),
                         backgroundColor: FlutterFlowTheme.of(context).primary,
                       ),
                     );
@@ -189,10 +181,10 @@ class _ClearDataWidgetState extends State<ClearDataWidget> {
                               ),
                         ),
                       ),
-                    ].divide(const SizedBox(width: 12.0)),
+                    ].divide(SizedBox(width: 12.0)),
                   ),
                 ),
-              ].divide(const SizedBox(height: 20.0)).addToEnd(const SizedBox(height: 18.0)),
+              ].divide(SizedBox(height: 20.0)).addToEnd(SizedBox(height: 18.0)),
             ),
           ),
         ),

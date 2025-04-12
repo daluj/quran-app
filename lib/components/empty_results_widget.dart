@@ -10,8 +10,8 @@ class EmptyResultsWidget extends StatefulWidget {
     super.key,
     String? message,
     String? title,
-  })  : message = message ?? 'No data found',
-        title = title ?? 'No Results';
+  })  : this.message = message ?? 'No data found',
+        this.title = title ?? 'No Results';
 
   final String message;
   final String title;
@@ -45,14 +45,14 @@ class _EmptyResultsWidgetState extends State<EmptyResultsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
             child: Text(
               widget.title,
               style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -66,7 +66,7 @@ class _EmptyResultsWidgetState extends State<EmptyResultsWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
             child: Text(
               widget.message,
               style: FlutterFlowTheme.of(context).labelMedium.override(

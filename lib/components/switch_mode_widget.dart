@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,7 +41,7 @@ class _SwitchModeWidgetState extends State<SwitchModeWidget> {
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -51,16 +52,8 @@ class _SwitchModeWidgetState extends State<SwitchModeWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              FlutterFlowTheme.of(context).primary,
-              FlutterFlowTheme.of(context).tertiary
-            ],
-            stops: const [0.0, 1.0],
-            begin: const AlignmentDirectional(0.0, -1.0),
-            end: const AlignmentDirectional(0, 1.0),
-          ),
-          borderRadius: const BorderRadius.only(
+          color: FlutterFlowTheme.of(context).secondary,
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(16.0),
@@ -68,7 +61,7 @@ class _SwitchModeWidgetState extends State<SwitchModeWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -88,38 +81,49 @@ class _SwitchModeWidgetState extends State<SwitchModeWidget> {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     setDarkModeSetting(context, ThemeMode.light);
+                    await actions.setSystemNavBarColorForThemeMode(
+                      context,
+                      'light',
+                    );
+                    Navigator.pop(context);
                   },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Icon(
-                          Icons.wb_sunny_rounded,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24.0,
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: 48.0,
+                    ),
+                    decoration: BoxDecoration(),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Icon(
+                            Icons.wb_sunny_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 9,
-                        child: Text(
-                          'Day Mode',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyLarge
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyLargeFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontSize: 18.0,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily),
-                              ),
+                        Expanded(
+                          flex: 9,
+                          child: Text(
+                            'Day Mode',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyLargeFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontSize: 18.0,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .bodyLargeFamily),
+                                ),
+                          ),
                         ),
-                      ),
-                    ].divide(const SizedBox(width: 12.0)),
+                      ].divide(SizedBox(width: 12.0)),
+                    ),
                   ),
                 ),
                 InkWell(
@@ -129,41 +133,52 @@ class _SwitchModeWidgetState extends State<SwitchModeWidget> {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     setDarkModeSetting(context, ThemeMode.dark);
+                    await actions.setSystemNavBarColorForThemeMode(
+                      context,
+                      'dark',
+                    );
+                    Navigator.pop(context);
                   },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: FaIcon(
-                            FontAwesomeIcons.moon,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 24.0,
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: 48.0,
+                    ),
+                    decoration: BoxDecoration(),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: FaIcon(
+                              FontAwesomeIcons.moon,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 9,
-                        child: Text(
-                          'Night Mode',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyLarge
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyLargeFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontSize: 18.0,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily),
-                              ),
+                        Expanded(
+                          flex: 9,
+                          child: Text(
+                            'Night Mode',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyLargeFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontSize: 18.0,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .bodyLargeFamily),
+                                ),
+                          ),
                         ),
-                      ),
-                    ].divide(const SizedBox(width: 12.0)),
+                      ].divide(SizedBox(width: 12.0)),
+                    ),
                   ),
                 ),
                 InkWell(
@@ -173,41 +188,52 @@ class _SwitchModeWidgetState extends State<SwitchModeWidget> {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     setDarkModeSetting(context, ThemeMode.system);
+                    await actions.setSystemNavBarColorForThemeMode(
+                      context,
+                      'system',
+                    );
+                    Navigator.pop(context);
                   },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Icon(
-                          Icons.devices_other,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24.0,
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: 48.0,
+                    ),
+                    decoration: BoxDecoration(),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Icon(
+                            Icons.devices_other,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 9,
-                        child: Text(
-                          'Use device settings',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyLarge
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyLargeFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontSize: 18.0,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily),
-                              ),
+                        Expanded(
+                          flex: 9,
+                          child: Text(
+                            'Use device settings',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyLargeFamily,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontSize: 18.0,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .bodyLargeFamily),
+                                ),
+                          ),
                         ),
-                      ),
-                    ].divide(const SizedBox(width: 12.0)),
+                      ].divide(SizedBox(width: 12.0)),
+                    ),
                   ),
                 ),
-              ].divide(const SizedBox(height: 20.0)).addToEnd(const SizedBox(height: 18.0)),
+              ].divide(SizedBox(height: 20.0)).addToEnd(SizedBox(height: 18.0)),
             ),
           ),
         ),

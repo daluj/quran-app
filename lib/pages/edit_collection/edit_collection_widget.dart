@@ -20,6 +20,9 @@ class EditCollectionWidget extends StatefulWidget {
 
   final GetCollectionsByTypeRow? collection;
 
+  static String routeName = 'editCollection';
+  static String routePath = '/editCollection';
+
   @override
   State<EditCollectionWidget> createState() => _EditCollectionWidgetState();
 }
@@ -81,14 +84,14 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
             decoration: InputDecoration(
               isDense: true,
               enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
+                borderSide: BorderSide(
                   color: Color(0x00000000),
                   width: 1.0,
                 ),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
+                borderSide: BorderSide(
                   color: Color(0x00000000),
                   width: 1.0,
                 ),
@@ -131,7 +134,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -181,7 +184,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                           .primaryText,
                                     ),
                                   ),
-                                  duration: const Duration(milliseconds: 4000),
+                                  duration: Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).primary,
                                 ),
@@ -226,19 +229,19 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: const Text('Delete Collection'),
-                                  content: const Text(
+                                  title: Text('Delete Collection'),
+                                  content: Text(
                                       'Are you sure you want to delete this collection?'),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, false),
-                                      child: const Text('No'),
+                                      child: Text('No'),
                                     ),
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, true),
-                                      child: const Text('Yes'),
+                                      child: Text('Yes'),
                                     ),
                                   ],
                                 );
@@ -261,7 +264,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                         size: 24.0,
                       ),
                     ),
-                ].divide(const SizedBox(width: 12.0)),
+                ].divide(SizedBox(width: 12.0)),
               ),
             ),
           ],
@@ -277,13 +280,13 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -292,7 +295,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                   Flexible(
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                       child: FutureBuilder<List<GetCollectionVersesRow>>(
                         future: SQLiteManager.instance.getCollectionVerses(
                           collectionId: widget.collection!.id,
@@ -316,7 +319,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                           final listViewGetCollectionVersesRowList =
                               snapshot.data!;
                           if (listViewGetCollectionVersesRowList.isEmpty) {
-                            return const Center(
+                            return Center(
                               child: EmptyResultsWidget(
                                 message:
                                     'Verses added to this collection will appear here.',
@@ -332,13 +335,13 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                             scrollDirection: Axis.vertical,
                             itemCount:
                                 listViewGetCollectionVersesRowList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 18.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 18.0),
                             itemBuilder: (context, listViewIndex) {
                               final listViewGetCollectionVersesRow =
                                   listViewGetCollectionVersesRowList[
                                       listViewIndex];
                               return Stack(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
+                                alignment: AlignmentDirectional(1.0, 1.0),
                                 children: [
                                   wrapWithModel(
                                     model: _model.quranVersesModels.getModel(
@@ -363,7 +366,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                   ),
                                   if (_model.showSave)
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 16.0, 12.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -377,9 +380,9 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                                     builder:
                                                         (alertDialogContext) {
                                                       return AlertDialog(
-                                                        title: const Text(
+                                                        title: Text(
                                                             'Delete Verse'),
-                                                        content: const Text(
+                                                        content: Text(
                                                             'Are you sure you want to delete this verse?'),
                                                         actions: [
                                                           TextButton(
@@ -387,14 +390,14 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                                                                 Navigator.pop(
                                                                     alertDialogContext,
                                                                     false),
-                                                            child: const Text('No'),
+                                                            child: Text('No'),
                                                           ),
                                                           TextButton(
                                                             onPressed: () =>
                                                                 Navigator.pop(
                                                                     alertDialogContext,
                                                                     true),
-                                                            child: const Text('Yes'),
+                                                            child: Text('Yes'),
                                                           ),
                                                         ],
                                                       );
@@ -430,7 +433,7 @@ class _EditCollectionWidgetState extends State<EditCollectionWidget> {
                       ),
                     ),
                   ),
-                ].divide(const SizedBox(height: 12.0)).around(const SizedBox(height: 12.0)),
+                ].divide(SizedBox(height: 12.0)).around(SizedBox(height: 12.0)),
               ),
             ),
           ),

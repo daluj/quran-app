@@ -267,6 +267,14 @@ class SQLiteManager {
         _database,
       );
 
+  Future<List<GetGoalsPrayersRow>> getGoalsPrayers({
+    String? type,
+  }) =>
+      performGetGoalsPrayers(
+        _database,
+        type: type,
+      );
+
   /// END READ QUERY CALLS
 
   /// START UPDATE QUERY CALLS
@@ -419,6 +427,26 @@ class SQLiteManager {
         collectionId: collectionId,
         surahId: surahId,
         verseId: verseId,
+      );
+
+  Future addGoalPrayer({
+    String? title,
+    String? description,
+    String? type,
+  }) =>
+      performAddGoalPrayer(
+        _database,
+        title: title,
+        description: description,
+        type: type,
+      );
+
+  Future deleteGoalPrayer({
+    int? id,
+  }) =>
+      performDeleteGoalPrayer(
+        _database,
+        id: id,
       );
 
   /// END UPDATE QUERY CALLS

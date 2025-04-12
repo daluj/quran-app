@@ -12,6 +12,9 @@ export 'new_reflection_model.dart';
 class NewReflectionWidget extends StatefulWidget {
   const NewReflectionWidget({super.key});
 
+  static String routeName = 'newReflection';
+  static String routePath = '/newReflection';
+
   @override
   State<NewReflectionWidget> createState() => _NewReflectionWidgetState();
 }
@@ -66,7 +69,7 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
               context.safePop();
             },
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -79,13 +82,13 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,14 +123,14 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
                                 FlutterFlowTheme.of(context).labelMediumFamily),
                           ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 1.0,
                         ),
@@ -200,14 +203,14 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
                               FlutterFlowTheme.of(context).labelMediumFamily),
                         ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         color: Color(0x00000000),
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         color: Color(0x00000000),
                         width: 1.0,
                       ),
@@ -250,10 +253,10 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
                       .asValidator(context),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(1.0, 0.0),
+                  alignment: AlignmentDirectional(1.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.titleTextController.text != '') {
@@ -270,14 +273,14 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
                             context: context,
                             builder: (alertDialogContext) {
                               return AlertDialog(
-                                title: const Text('No Data'),
+                                title: Text('No Data'),
                                 content:
-                                    const Text('Please provide some information'),
+                                    Text('Please provide some information'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.pop(alertDialogContext),
-                                    child: const Text('Ok'),
+                                    child: Text('Ok'),
                                   ),
                                 ],
                               );
@@ -289,10 +292,10 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
                       text: 'Create',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -311,7 +314,7 @@ class _NewReflectionWidgetState extends State<NewReflectionWidget> {
                     ),
                   ),
                 ),
-              ].divide(const SizedBox(height: 12.0)).around(const SizedBox(height: 12.0)),
+              ].divide(SizedBox(height: 12.0)).around(SizedBox(height: 12.0)),
             ),
           ),
         ),

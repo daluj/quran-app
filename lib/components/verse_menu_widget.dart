@@ -4,6 +4,7 @@ import '/components/add_verse_to_reflections_widget.dart';
 import '/components/new_collection_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,7 +52,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -62,16 +63,8 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              FlutterFlowTheme.of(context).primary,
-              FlutterFlowTheme.of(context).tertiary
-            ],
-            stops: const [0.0, 1.0],
-            begin: const AlignmentDirectional(0.0, -1.0),
-            end: const AlignmentDirectional(0, 1.0),
-          ),
-          borderRadius: const BorderRadius.only(
+          color: FlutterFlowTheme.of(context).secondary,
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(16.0),
@@ -79,7 +72,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -98,10 +91,10 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    var shouldSetState = false;
+                    var _shouldSetState = false;
                     _model.journals =
                         await SQLiteManager.instance.getJournals();
-                    shouldSetState = true;
+                    _shouldSetState = true;
                     if (_model.journals != null &&
                         (_model.journals)!.isNotEmpty) {
                       await showModalBottomSheet(
@@ -112,7 +105,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
+                            child: Container(
                               height: MediaQuery.sizeOf(context).height * 0.5,
                               child: AddVerseToReflectionsWidget(
                                 surahId: widget.surahId!,
@@ -123,16 +116,16 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         },
                       ).then((value) => safeSetState(() {}));
 
-                      if (shouldSetState) safeSetState(() {});
+                      if (_shouldSetState) safeSetState(() {});
                       return;
                     } else {
-                      context.pushNamed('newReflection');
+                      context.pushNamed(NewReflectionWidget.routeName);
 
-                      if (shouldSetState) safeSetState(() {});
+                      if (_shouldSetState) safeSetState(() {});
                       return;
                     }
 
-                    if (shouldSetState) safeSetState(() {});
+                    if (_shouldSetState) safeSetState(() {});
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -161,7 +154,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                               ),
                         ),
                       ),
-                    ].divide(const SizedBox(width: 12.0)),
+                    ].divide(SizedBox(width: 12.0)),
                   ),
                 ),
                 InkWell(
@@ -170,12 +163,12 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    var shouldSetState = false;
+                    var _shouldSetState = false;
                     _model.collections =
                         await SQLiteManager.instance.getCollectionsByType(
                       type: 'user',
                     );
-                    shouldSetState = true;
+                    _shouldSetState = true;
                     if (_model.collections != null &&
                         (_model.collections)!.isNotEmpty) {
                       await showModalBottomSheet(
@@ -186,7 +179,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
+                            child: Container(
                               height: MediaQuery.sizeOf(context).height * 0.5,
                               child: AddVerseToCollectionWidget(
                                 surahId: widget.surahId!,
@@ -198,7 +191,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         },
                       ).then((value) => safeSetState(() {}));
 
-                      if (shouldSetState) safeSetState(() {});
+                      if (_shouldSetState) safeSetState(() {});
                       return;
                     } else {
                       await showModalBottomSheet(
@@ -209,9 +202,9 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
+                            child: Container(
                               height: MediaQuery.sizeOf(context).height * 0.36,
-                              child: const NewCollectionWidget(
+                              child: NewCollectionWidget(
                                 type: 'user',
                               ),
                             ),
@@ -219,11 +212,11 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         },
                       ).then((value) => safeSetState(() {}));
 
-                      if (shouldSetState) safeSetState(() {});
+                      if (_shouldSetState) safeSetState(() {});
                       return;
                     }
 
-                    if (shouldSetState) safeSetState(() {});
+                    if (_shouldSetState) safeSetState(() {});
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -252,7 +245,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                               ),
                         ),
                       ),
-                    ].divide(const SizedBox(width: 12.0)),
+                    ].divide(SizedBox(width: 12.0)),
                   ),
                 ),
                 InkWell(
@@ -261,12 +254,12 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    var shouldSetState = false;
+                    var _shouldSetState = false;
                     _model.duas =
                         await SQLiteManager.instance.getCollectionsByType(
                       type: 'duas',
                     );
-                    shouldSetState = true;
+                    _shouldSetState = true;
                     if (_model.duas != null && (_model.duas)!.isNotEmpty) {
                       await showModalBottomSheet(
                         isScrollControlled: true,
@@ -276,7 +269,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
+                            child: Container(
                               height: MediaQuery.sizeOf(context).height * 0.5,
                               child: AddVerseToCollectionWidget(
                                 surahId: widget.surahId!,
@@ -288,7 +281,7 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         },
                       ).then((value) => safeSetState(() {}));
 
-                      if (shouldSetState) safeSetState(() {});
+                      if (_shouldSetState) safeSetState(() {});
                       return;
                     } else {
                       await showModalBottomSheet(
@@ -299,9 +292,9 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
+                            child: Container(
                               height: MediaQuery.sizeOf(context).height * 0.36,
-                              child: const NewCollectionWidget(
+                              child: NewCollectionWidget(
                                 type: 'duas',
                               ),
                             ),
@@ -309,11 +302,11 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                         },
                       ).then((value) => safeSetState(() {}));
 
-                      if (shouldSetState) safeSetState(() {});
+                      if (_shouldSetState) safeSetState(() {});
                       return;
                     }
 
-                    if (shouldSetState) safeSetState(() {});
+                    if (_shouldSetState) safeSetState(() {});
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -342,10 +335,10 @@ class _VerseMenuWidgetState extends State<VerseMenuWidget> {
                               ),
                         ),
                       ),
-                    ].divide(const SizedBox(width: 12.0)),
+                    ].divide(SizedBox(width: 12.0)),
                   ),
                 ),
-              ].divide(const SizedBox(height: 20.0)).addToEnd(const SizedBox(height: 18.0)),
+              ].divide(SizedBox(height: 20.0)).addToEnd(SizedBox(height: 18.0)),
             ),
           ),
         ),

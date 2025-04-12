@@ -2,6 +2,7 @@ import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,6 +20,9 @@ class VerseCommentsWidget extends StatefulWidget {
 
   final int? surahId;
   final int? verseId;
+
+  static String routeName = 'verseComments';
+  static String routePath = '/verseComments';
 
   @override
   State<VerseCommentsWidget> createState() => _VerseCommentsWidgetState();
@@ -69,7 +73,7 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
             ),
             onPressed: () async {
               context.pushNamed(
-                'Quran',
+                QuranWidget.routeName,
                 queryParameters: {
                   'surahId': serializeParam(
                     widget.surahId,
@@ -100,15 +104,15 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                 ),
                 TextSpan(
                   text: widget.surahId!.toString(),
-                  style: const TextStyle(),
+                  style: TextStyle(),
                 ),
-                const TextSpan(
+                TextSpan(
                   text: ' Verse ',
                   style: TextStyle(),
                 ),
                 TextSpan(
                   text: widget.verseId!.toString(),
-                  style: const TextStyle(),
+                  style: TextStyle(),
                 )
               ],
               style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -138,7 +142,7 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                   );
 
                   context.pushNamed(
-                    'Quran',
+                    QuranWidget.routeName,
                     queryParameters: {
                       'surahId': serializeParam(
                         widget.surahId,
@@ -157,12 +161,12 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                     context: context,
                     builder: (alertDialogContext) {
                       return AlertDialog(
-                        title: const Text('No Data'),
-                        content: const Text('Please provide some information'),
+                        title: Text('No Data'),
+                        content: Text('Please provide some information'),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(alertDialogContext),
-                            child: const Text('Ok'),
+                            child: Text('Ok'),
                           ),
                         ],
                       );
@@ -185,13 +189,13 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -235,14 +239,14 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                   borderRadius: BorderRadius.circular(18.0),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(-1.0, 0.0),
+                                            AlignmentDirectional(-1.0, 0.0),
                                         child: Text(
                                           listViewGetVerseCommentsRow
                                               .commentText,
@@ -251,6 +255,9 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                               .labelLarge
                                               .override(
                                                 fontFamily: 'GFS Didot',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts:
@@ -303,7 +310,7 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                                                     .bodyMediumFamily),
                                                       ),
                                                 ),
-                                                const TextSpan(
+                                                TextSpan(
                                                   text: ' at ',
                                                   style: TextStyle(),
                                                 ),
@@ -317,7 +324,7 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                                             context)
                                                         .languageCode,
                                                   ),
-                                                  style: const TextStyle(),
+                                                  style: TextStyle(),
                                                 )
                                               ],
                                               style:
@@ -360,9 +367,9 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                                             builder:
                                                                 (alertDialogContext) {
                                                               return AlertDialog(
-                                                                title: const Text(
+                                                                title: Text(
                                                                     'Delete Comment'),
-                                                                content: const Text(
+                                                                content: Text(
                                                                     'Are you sure you want to delete this comment?'),
                                                                 actions: [
                                                                   TextButton(
@@ -370,7 +377,7 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                                                         Navigator.pop(
                                                                             alertDialogContext,
                                                                             false),
-                                                                    child: const Text(
+                                                                    child: Text(
                                                                         'No'),
                                                                   ),
                                                                   TextButton(
@@ -378,7 +385,7 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                                                         Navigator.pop(
                                                                             alertDialogContext,
                                                                             true),
-                                                                    child: const Text(
+                                                                    child: Text(
                                                                         'Yes'),
                                                                   ),
                                                                 ],
@@ -412,8 +419,8 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                         ],
                                       ),
                                     ]
-                                        .divide(const SizedBox(height: 12.0))
-                                        .around(const SizedBox(height: 12.0)),
+                                        .divide(SizedBox(height: 12.0))
+                                        .around(SizedBox(height: 12.0)),
                                   ),
                                 ),
                               ),
@@ -463,14 +470,14 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                                       .labelMediumFamily),
                             ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 1.0,
                           ),
@@ -508,7 +515,7 @@ class _VerseCommentsWidgetState extends State<VerseCommentsWidget> {
                           .asValidator(context),
                     ),
                   ),
-                ].divide(const SizedBox(height: 12.0)).around(const SizedBox(height: 12.0)),
+                ].divide(SizedBox(height: 12.0)).around(SizedBox(height: 12.0)),
               ),
             ),
           ),

@@ -1,5 +1,4 @@
 // Export pages
-export '/pages/explore/explore_widget.dart' show ExploreWidget;
 export '/pages/verses/verses_widget.dart' show VersesWidget;
 export '/pages/translation/translation_widget.dart' show TranslationWidget;
 export '/pages/app_info/app_info_widget.dart' show AppInfoWidget;
@@ -21,12 +20,11 @@ export '/pages/edit_collection/edit_collection_widget.dart'
 export '/pages/glossary/glossary_widget.dart' show GlossaryWidget;
 export '/pages/beautiful_names/beautiful_names_widget.dart'
     show BeautifulNamesWidget;
-export '/pages/basics/basics_widget.dart' show BasicsWidget;
 export '/pages/quranic_salat/quranic_salat_widget.dart' show QuranicSalatWidget;
-export '/pages/quran_initials/quran_initials_widget.dart'
-    show QuranInitialsWidget;
 export '/pages/verse_comments/verse_comments_widget.dart'
     show VerseCommentsWidget;
 export '/pages/bookmarks/bookmarks_widget.dart' show BookmarksWidget;
-export '/pages/quran_dictionary/quran_dictionary_widget.dart'
-    show QuranDictionaryWidget;
+export '/pages/call_god/call_god_widget.dart' show CallGodWidget;
+export '/pages/goals_and_prayers/goals_and_prayers_widget.dart'
+    show GoalsAndPrayersWidget;
+export '/pages/explore/explore_widget.dart' show ExploreWidget;

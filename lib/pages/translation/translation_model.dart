@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'translation_widget.dart' show TranslationWidget;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';

@@ -56,7 +56,7 @@ class _AddVerseToCollectionWidgetState
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -66,16 +66,8 @@ class _AddVerseToCollectionWidgetState
       ),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              FlutterFlowTheme.of(context).primary,
-              FlutterFlowTheme.of(context).tertiary
-            ],
-            stops: const [0.0, 1.0],
-            begin: const AlignmentDirectional(0.0, -1.0),
-            end: const AlignmentDirectional(0, 1.0),
-          ),
-          borderRadius: const BorderRadius.only(
+          color: FlutterFlowTheme.of(context).secondary,
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(16.0),
@@ -83,13 +75,13 @@ class _AddVerseToCollectionWidgetState
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 18.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 18.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,15 +102,15 @@ class _AddVerseToCollectionWidgetState
                     ),
                     Flexible(
                       child: Align(
-                        alignment: const AlignmentDirectional(1.0, 0.0),
+                        alignment: AlignmentDirectional(1.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderColor: Colors.transparent,
                           borderRadius: 8.0,
                           borderWidth: 1.0,
                           buttonSize: 40.0,
-                          icon: const FaIcon(
+                          icon: FaIcon(
                             FontAwesomeIcons.save,
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context).secondaryText,
                             size: 24.0,
                           ),
                           onPressed: () async {
@@ -139,7 +131,7 @@ class _AddVerseToCollectionWidgetState
                                           .primaryText,
                                     ),
                                   ),
-                                  duration: const Duration(milliseconds: 4000),
+                                  duration: Duration(milliseconds: 4000),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).primary,
                                 ),
@@ -150,13 +142,13 @@ class _AddVerseToCollectionWidgetState
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('No Collection'),
-                                    content: const Text('Please select a collection'),
+                                    title: Text('No Collection'),
+                                    content: Text('Please select a collection'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
+                                        child: Text('Ok'),
                                       ),
                                     ],
                                   );
@@ -244,7 +236,7 @@ class _AddVerseToCollectionWidgetState
                     borderWidth: 0.0,
                     borderRadius: 8.0,
                     margin:
-                        const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                     hidesUnderline: true,
                     isOverButton: false,
                     isSearchable: true,
@@ -252,7 +244,7 @@ class _AddVerseToCollectionWidgetState
                   );
                 },
               ),
-            ].divide(const SizedBox(height: 20.0)),
+            ].divide(SizedBox(height: 20.0)),
           ),
         ),
       ),

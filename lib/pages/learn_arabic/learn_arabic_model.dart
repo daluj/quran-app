@@ -1,5 +1,6 @@
 import '/components/quran_verses_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'learn_arabic_widget.dart' show LearnArabicWidget;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

@@ -15,6 +15,10 @@ class QuranSettingsModel extends FlutterFlowModel<QuranSettingsWidget> {
   bool? showTranslationValue;
   // State field(s) for translationSlider widget.
   double? translationSliderValue;
+  // State field(s) for downloadAudio widget.
+  bool? downloadAudioValue;
+  // State field(s) for wordSpaceSlider widget.
+  double? wordSpaceSliderValue;
 
   @override
   void initState(BuildContext context) {}

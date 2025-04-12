@@ -36,9 +36,6 @@ class FFAppState extends ChangeNotifier {
       _readingMode = prefs.getBool('ff_readingMode') ?? _readingMode;
     });
     _safeInit(() {
-      _reciterUrl = prefs.getString('ff_reciterUrl') ?? _reciterUrl;
-    });
-    _safeInit(() {
       _translationFontSize =
           prefs.getInt('ff_translationFontSize') ?? _translationFontSize;
     });
@@ -67,6 +64,13 @@ class FFAppState extends ChangeNotifier {
           print("Can't decode persisted data type. Error: $e.");
         }
       }
+    });
+    _safeInit(() {
+      _downloadAudio = prefs.getBool('ff_downloadAudio') ?? _downloadAudio;
+    });
+    _safeInit(() {
+      _wordSpaceSeconds =
+          prefs.getInt('ff_wordSpaceSeconds') ?? _wordSpaceSeconds;
     });
   }
 
@@ -112,14 +116,6 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_readingMode', value);
   }
 
-  String _reciterUrl =
-      'https://podcasts.qurancentral.com/wadee-hammadi-al-yamani/wadee-hammadi-al-yamani-\${surah_id}-qurancentral.com.mp3';
-  String get reciterUrl => _reciterUrl;
-  set reciterUrl(String value) {
-    _reciterUrl = value;
-    prefs.setString('ff_reciterUrl', value);
-  }
-
   int _translationFontSize = 16;
   int get translationFontSize => _translationFontSize;
   set translationFontSize(int value) {
@@ -158,6 +154,78 @@ class FFAppState extends ChangeNotifier {
   void updateLastRecitationStruct(Function(BookMarkStruct) updateFn) {
     updateFn(_lastRecitation);
     prefs.setString('ff_lastRecitation', _lastRecitation.serialize());
+  }
+
+  bool _downloadAudio = false;
+  bool get downloadAudio => _downloadAudio;
+  set downloadAudio(bool value) {
+    _downloadAudio = value;
+    prefs.setBool('ff_downloadAudio', value);
+  }
+
+  int _wordSpaceSeconds = 0;
+  int get wordSpaceSeconds => _wordSpaceSeconds;
+  set wordSpaceSeconds(int value) {
+    _wordSpaceSeconds = value;
+    prefs.setInt('ff_wordSpaceSeconds', value);
+  }
+
+  List<QuranInitialStruct> _QuranInitials = [
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"40\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"2\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"10\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"26\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"7\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"13\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"19\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"20\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"27\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"36\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"38\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"42\",\"verseId\":\"2\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"50\",\"verseId\":\"1\",\"positionId\":\"1\"}')),
+    QuranInitialStruct.fromSerializableMap(jsonDecode(
+        '{\"surahId\":\"68\",\"verseId\":\"1\",\"positionId\":\"1\"}'))
+  ];
+  List<QuranInitialStruct> get QuranInitials => _QuranInitials;
+  set QuranInitials(List<QuranInitialStruct> value) {
+    _QuranInitials = value;
+  }
+
+  void addToQuranInitials(QuranInitialStruct value) {
+    QuranInitials.add(value);
+  }
+
+  void removeFromQuranInitials(QuranInitialStruct value) {
+    QuranInitials.remove(value);
+  }
+
+  void removeAtIndexFromQuranInitials(int index) {
+    QuranInitials.removeAt(index);
+  }
+
+  void updateQuranInitialsAtIndex(
+    int index,
+    QuranInitialStruct Function(QuranInitialStruct) updateFn,
+  ) {
+    QuranInitials[index] = updateFn(_QuranInitials[index]);
+  }
+
+  void insertAtIndexInQuranInitials(int index, QuranInitialStruct value) {
+    QuranInitials.insert(index, value);
   }
 }
 

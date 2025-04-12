@@ -74,7 +74,7 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
         return Material(
           color: Colors.transparent,
           elevation: 5.0,
-          shape: const RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(0.0),
               bottomRight: Radius.circular(0.0),
@@ -84,16 +84,8 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
           ),
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  FlutterFlowTheme.of(context).primary,
-                  FlutterFlowTheme.of(context).tertiary
-                ],
-                stops: const [0.0, 1.0],
-                begin: const AlignmentDirectional(0.0, -1.0),
-                end: const AlignmentDirectional(0, 1.0),
-              ),
-              borderRadius: const BorderRadius.only(
+              color: FlutterFlowTheme.of(context).secondary,
+              borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(0.0),
                 bottomRight: Radius.circular(0.0),
                 topLeft: Radius.circular(16.0),
@@ -101,14 +93,14 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -143,7 +135,7 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                                   icon: FaIcon(
                                     FontAwesomeIcons.save,
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                        .secondaryText,
                                   ),
                                   onPressed: () async {
                                     if (_model.descriptionTextController
@@ -182,7 +174,7 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                                             ),
                                           ),
                                           duration:
-                                              const Duration(milliseconds: 4000),
+                                              Duration(milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
@@ -194,13 +186,13 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                                         context: context,
                                         builder: (alertDialogContext) {
                                           return AlertDialog(
-                                            content: const Text(
+                                            content: Text(
                                                 'Please provide information'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext),
-                                                child: const Text('Ok'),
+                                                child: Text('Ok'),
                                               ),
                                             ],
                                           );
@@ -211,7 +203,7 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                                   },
                                 ),
                               ),
-                            ].divide(const SizedBox(width: 9.0)),
+                            ].divide(SizedBox(width: 9.0)),
                           ),
                         ),
                       ],
@@ -266,7 +258,7 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                      contentPadding: EdgeInsetsDirectional.fromSTEB(
                           20.0, 32.0, 20.0, 12.0),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -288,7 +280,7 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                   ),
                   if (createCommentGetVerseCommentsRowList.isNotEmpty)
                     Align(
-                      alignment: const AlignmentDirectional(1.0, 0.0),
+                      alignment: AlignmentDirectional(1.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -310,7 +302,7 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                                         .primaryText,
                                   ),
                                 ),
-                                duration: const Duration(milliseconds: 4000),
+                                duration: Duration(milliseconds: 4000),
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).primary,
                               ),
@@ -322,12 +314,12 @@ class _CommentEntryWidgetState extends State<CommentEntryWidget> {
                         },
                         child: FaIcon(
                           FontAwesomeIcons.trashAlt,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: FlutterFlowTheme.of(context).secondaryText,
                           size: 30.0,
                         ),
                       ),
                     ),
-                ].divide(const SizedBox(height: 20.0)),
+                ].divide(SizedBox(height: 20.0)),
               ),
             ),
           ),

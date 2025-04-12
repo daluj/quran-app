@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,11 +18,14 @@ class QuranWidget extends StatefulWidget {
     super.key,
     int? surahId,
     int? verseId,
-  })  : surahId = surahId ?? 1,
-        verseId = verseId ?? 0;
+  })  : this.surahId = surahId ?? 1,
+        this.verseId = verseId ?? 0;
 
   final int surahId;
   final int verseId;
+
+  static String routeName = 'Quran';
+  static String routePath = '/quran';
 
   @override
   State<QuranWidget> createState() => _QuranWidgetState();
@@ -60,7 +64,7 @@ class _QuranWidgetState extends State<QuranWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        drawer: SizedBox(
+        drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.4,
           child: Drawer(
             elevation: 16.0,
@@ -73,9 +77,9 @@ class _QuranWidgetState extends State<QuranWidget> {
                     FlutterFlowTheme.of(context).primary,
                     FlutterFlowTheme.of(context).secondary
                   ],
-                  stops: const [0.0, 1.0],
-                  begin: const AlignmentDirectional(0.0, -1.0),
-                  end: const AlignmentDirectional(0, 1.0),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Column(
@@ -84,7 +88,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 60.0, 10.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(10.0, 60.0, 10.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -103,7 +107,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                               onPressed: () async {
                                 if (widget.surahId > 1) {
                                   context.pushNamed(
-                                    'Quran',
+                                    QuranWidget.routeName,
                                     queryParameters: {
                                       'surahId': serializeParam(
                                         widget.surahId - 1,
@@ -130,7 +134,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                               onPressed: () async {
                                 if (widget.surahId < 114) {
                                   context.pushNamed(
-                                    'Quran',
+                                    QuranWidget.routeName,
                                     queryParameters: {
                                       'surahId': serializeParam(
                                         widget.surahId + 1,
@@ -153,7 +157,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                           focusNode: _model.surahSearchFocusNode,
                           onChanged: (_) => EasyDebounce.debounce(
                             '_model.surahSearchTextController',
-                            const Duration(milliseconds: 100),
+                            Duration(milliseconds: 100),
                             () => safeSetState(() {}),
                           ),
                           autofocus: false,
@@ -187,14 +191,14 @@ class _QuranWidgetState extends State<QuranWidget> {
                                           .labelMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0x00000000),
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0x00000000),
                                 width: 1.0,
                               ),
@@ -253,13 +257,13 @@ class _QuranWidgetState extends State<QuranWidget> {
                           validator: _model.surahSearchTextControllerValidator
                               .asValidator(context),
                         ),
-                      ].divide(const SizedBox(height: 9.0)),
+                      ].divide(SizedBox(height: 9.0)),
                     ),
                   ),
                   Flexible(
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                       child: FutureBuilder<List<GetSuraIdsRow>>(
                         future: SQLiteManager.instance.getSuraIds(
                           surahId: valueOrDefault<String>(
@@ -285,7 +289,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                           final listViewGetSuraIdsRowList = snapshot.data!;
 
                           return ListView.separated(
-                            padding: const EdgeInsets.fromLTRB(
+                            padding: EdgeInsets.fromLTRB(
                               0,
                               18.0,
                               0,
@@ -293,7 +297,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                             ),
                             scrollDirection: Axis.vertical,
                             itemCount: listViewGetSuraIdsRowList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 16.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 16.0),
                             itemBuilder: (context, listViewIndex) {
                               final listViewGetSuraIdsRow =
                                   listViewGetSuraIdsRowList[listViewIndex];
@@ -304,7 +308,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'Quran',
+                                    QuranWidget.routeName,
                                     queryParameters: {
                                       'surahId': serializeParam(
                                         listViewGetSuraIdsRow.id,
@@ -316,20 +320,20 @@ class _QuranWidgetState extends State<QuranWidget> {
                                   Navigator.pop(context);
                                 },
                                 child: Container(
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: RichText(
                                     textScaler:
                                         MediaQuery.of(context).textScaler,
                                     text: TextSpan(
                                       children: [
-                                        const TextSpan(
+                                        TextSpan(
                                           text: 'Surah ',
                                           style: TextStyle(),
                                         ),
                                         TextSpan(
                                           text: listViewGetSuraIdsRow.id
                                               .toString(),
-                                          style: const TextStyle(),
+                                          style: TextStyle(),
                                         )
                                       ],
                                       style: FlutterFlowTheme.of(context)
@@ -356,12 +360,12 @@ class _QuranWidgetState extends State<QuranWidget> {
                       ),
                     ),
                   ),
-                ].divide(const SizedBox(height: 12.0)),
+                ].divide(SizedBox(height: 12.0)),
               ),
             ),
           ),
         ),
-        endDrawer: SizedBox(
+        endDrawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.4,
           child: Drawer(
             elevation: 16.0,
@@ -374,9 +378,9 @@ class _QuranWidgetState extends State<QuranWidget> {
                     FlutterFlowTheme.of(context).primary,
                     FlutterFlowTheme.of(context).secondary
                   ],
-                  stops: const [0.0, 1.0],
-                  begin: const AlignmentDirectional(0.0, -1.0),
-                  end: const AlignmentDirectional(0, 1.0),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Column(
@@ -384,13 +388,13 @@ class _QuranWidgetState extends State<QuranWidget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 60.0, 10.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(10.0, 60.0, 10.0, 0.0),
                     child: TextFormField(
                       controller: _model.verseNumberTextController,
                       focusNode: _model.verseNumberFocusNode,
                       onChanged: (_) => EasyDebounce.debounce(
                         '_model.verseNumberTextController',
-                        const Duration(milliseconds: 100),
+                        Duration(milliseconds: 100),
                         () => safeSetState(() {}),
                       ),
                       autofocus: false,
@@ -421,14 +425,14 @@ class _QuranWidgetState extends State<QuranWidget> {
                                       .labelMediumFamily),
                             ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Color(0x00000000),
                             width: 1.0,
                           ),
@@ -490,7 +494,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                   Flexible(
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                       child: FutureBuilder<List<GetVersesIdsFromSuraRow>>(
                         future: SQLiteManager.instance.getVersesIdsFromSura(
                           surahId: widget.surahId.toString(),
@@ -518,7 +522,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                               snapshot.data!;
 
                           return ListView.separated(
-                            padding: const EdgeInsets.fromLTRB(
+                            padding: EdgeInsets.fromLTRB(
                               0,
                               18.0,
                               0,
@@ -527,7 +531,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                             scrollDirection: Axis.vertical,
                             itemCount:
                                 listViewGetVersesIdsFromSuraRowList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 16.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 16.0),
                             itemBuilder: (context, listViewIndex) {
                               final listViewGetVersesIdsFromSuraRow =
                                   listViewGetVersesIdsFromSuraRowList[
@@ -539,7 +543,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'Quran',
+                                    QuranWidget.routeName,
                                     queryParameters: {
                                       'surahId': serializeParam(
                                         widget.surahId,
@@ -555,13 +559,13 @@ class _QuranWidgetState extends State<QuranWidget> {
                                   Navigator.pop(context);
                                 },
                                 child: Container(
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: RichText(
                                     textScaler:
                                         MediaQuery.of(context).textScaler,
                                     text: TextSpan(
                                       children: [
-                                        const TextSpan(
+                                        TextSpan(
                                           text: 'Verse ',
                                           style: TextStyle(),
                                         ),
@@ -569,7 +573,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                                           text: listViewGetVersesIdsFromSuraRow
                                               .verseId
                                               .toString(),
-                                          style: const TextStyle(),
+                                          style: TextStyle(),
                                         )
                                       ],
                                       style: FlutterFlowTheme.of(context)
@@ -646,7 +650,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                       child: Icon(
                         Icons.keyboard_arrow_down,
                         color: FlutterFlowTheme.of(context).primaryText,
@@ -671,7 +675,7 @@ class _QuranWidgetState extends State<QuranWidget> {
                     size: 24.0,
                   ),
                   onPressed: () async {
-                    context.pushNamed('glossary');
+                    context.pushNamed(GlossaryWidget.routeName);
                   },
                 ),
                 FlutterFlowIconButton(
@@ -696,9 +700,9 @@ class _QuranWidgetState extends State<QuranWidget> {
                           },
                           child: Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 0.5,
-                              child: const QuranSettingsWidget(),
+                            child: Container(
+                              height: MediaQuery.sizeOf(context).height * 0.6,
+                              child: QuranSettingsWidget(),
                             ),
                           ),
                         );
@@ -734,13 +738,13 @@ class _QuranWidgetState extends State<QuranWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
             child: FutureBuilder<List<GetVersesFromSurahIdRow>>(
               future: SQLiteManager.instance.getVersesFromSurahId(
                 surahId: widget.surahId,

@@ -18,7 +18,7 @@ Future<List<GetVersesFromSurahIdRow>> performGetVersesFromSurahId(
 SELECT 
     v.verse_id,
     v.surah_id,
-    v.$translationCode AS verse_translation,
+    v.${translationCode} AS verse_translation,
     COALESCE(COUNT(c.id), 0) AS comment_count,
     	 (
         SELECT GROUP_CONCAT(w.ar, ' ')
@@ -48,11 +48,11 @@ LEFT JOIN
     ON v.surah_id = c.surah_id 
     AND v.verse_id = c.verse_id
 WHERE 
-    v.surah_id = $surahId
+    v.surah_id = ${surahId}
 GROUP BY 
     v.verse_id, 
     v.surah_id, 
-    v.$translationCode
+    v.${translationCode}
 ORDER BY 
     v.surah_id, 
     v.verse_id;
@@ -61,7 +61,7 @@ ORDER BY
 }
 
 class GetVersesFromSurahIdRow extends SqliteRow {
-  GetVersesFromSurahIdRow(super.data);
+  GetVersesFromSurahIdRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
   int get surahId => data['surah_id'] as int;
@@ -81,16 +81,16 @@ Future<List<GetVersesFromListRow>> performGetVersesFromList(
   String? translationCode,
 }) {
   final query = '''
-SELECT verse_id, surah_id, $translationCode AS verse_translation
+SELECT verse_id, surah_id, ${translationCode} AS verse_translation
 FROM verses
-WHERE verse_code IN ( $verses )
+WHERE verse_code IN ( ${verses} )
 ORDER BY surah_id, verse_id;
 ''';
   return _readQuery(database, query, (d) => GetVersesFromListRow(d));
 }
 
 class GetVersesFromListRow extends SqliteRow {
-  GetVersesFromListRow(super.data);
+  GetVersesFromListRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
   int get surahId => data['surah_id'] as int;
@@ -107,13 +107,13 @@ Future<List<GetSurahRow>> performGetSurah(
   final query = '''
 SELECT id,verses_count,bismillah_pre 
 FROM surahs 
-WHERE id = $surahId;
+WHERE id = ${surahId};
 ''';
   return _readQuery(database, query, (d) => GetSurahRow(d));
 }
 
 class GetSurahRow extends SqliteRow {
-  GetSurahRow(super.data);
+  GetSurahRow(Map<String, dynamic> data) : super(data);
 
   int get id => data['id'] as int;
   int get versesCount => data['verses_count'] as int;
@@ -130,15 +130,15 @@ Future<List<GetVerseRow>> performGetVerse(
   String? translationCode,
 }) {
   final query = '''
-SELECT verse_id, surah_id, $translationCode AS verse_translation
+SELECT verse_id, surah_id, ${translationCode} AS verse_translation
 FROM verses
-WHERE surah_id = $surahId AND verse_id = $verseId;
+WHERE surah_id = ${surahId} AND verse_id = ${verseId};
 ''';
   return _readQuery(database, query, (d) => GetVerseRow(d));
 }
 
 class GetVerseRow extends SqliteRow {
-  GetVerseRow(super.data);
+  GetVerseRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
   int get surahId => data['surah_id'] as int;
@@ -157,23 +157,23 @@ Future<List<SearchTextRow>> performSearchText(
 SELECT 
     v.verse_id, 
     v.surah_id,
-    v.$translationCode AS verse_translation,
+    v.${translationCode} AS verse_translation,
     t.total_results
 FROM verses v
 JOIN (
     SELECT COUNT(*) AS total_results
     FROM verses
     WHERE verse_id > 0 
-      AND ($translationCode LIKE '%$searchText%' OR verse_code = '$searchText')
+      AND (${translationCode} LIKE '%${searchText}%' OR verse_code = '${searchText}')
 ) t ON 1=1
 WHERE v.verse_id > 0 
-  AND (v.$translationCode LIKE '%$searchText%' OR v.verse_code = '$searchText');
+  AND (v.${translationCode} LIKE '%${searchText}%' OR v.verse_code = '${searchText}');
 ''';
   return _readQuery(database, query, (d) => SearchTextRow(d));
 }
 
 class SearchTextRow extends SqliteRow {
-  SearchTextRow(super.data);
+  SearchTextRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
   int get surahId => data['surah_id'] as int;
@@ -202,13 +202,13 @@ FROM
 JOIN
     verses v ON s1.id = v.surah_id
 WHERE
-    v.surah_id = $surahId AND v.verse_id = $verseId;
+    v.surah_id = ${surahId} AND v.verse_id = ${verseId};
 ''';
   return _readQuery(database, query, (d) => GetProgressRow(d));
 }
 
 class GetProgressRow extends SqliteRow {
-  GetProgressRow(super.data);
+  GetProgressRow(Map<String, dynamic> data) : super(data);
 
   int get cumulativeVerses => data['cumulative_verses'] as int;
   int get totalVerses => data['total_verses'] as int;
@@ -223,16 +223,17 @@ Future<List<GetGlossaryRow>> performGetGlossary(
   String? searchText,
 }) {
   final query = '''
-SELECT word,$translationCode as translation_text
+SELECT word,${translationCode} as translation_text
 FROM glossary 
-WHERE word LIKE '%$searchText%'
-ORDER BY word ASC;
+WHERE word LIKE '%${searchText}%'
+ORDER BY word ASC
+;
 ''';
   return _readQuery(database, query, (d) => GetGlossaryRow(d));
 }
 
 class GetGlossaryRow extends SqliteRow {
-  GetGlossaryRow(super.data);
+  GetGlossaryRow(Map<String, dynamic> data) : super(data);
 
   String get word => data['word'] as String;
   String get translationText => data['translation_text'] as String;
@@ -249,14 +250,14 @@ Future<List<GetVerseCommentsRow>> performGetVerseComments(
   final query = '''
 SELECT id,surah_id, verse_id, comment_text, last_updated
 FROM comments
-WHERE surah_id = $surahId AND verse_id = $verseId
+WHERE surah_id = ${surahId} AND verse_id = ${verseId}
 ORDER BY last_updated DESC;
 ''';
   return _readQuery(database, query, (d) => GetVerseCommentsRow(d));
 }
 
 class GetVerseCommentsRow extends SqliteRow {
-  GetVerseCommentsRow(super.data);
+  GetVerseCommentsRow(Map<String, dynamic> data) : super(data);
 
   int get surahId => data['surah_id'] as int;
   int get verseId => data['verse_id'] as int;
@@ -271,7 +272,7 @@ class GetVerseCommentsRow extends SqliteRow {
 Future<List<GetCommentsRow>> performGetComments(
   Database database,
 ) {
-  const query = '''
+  final query = '''
 SELECT
     c.id,
     c.verse_id,
@@ -285,7 +286,7 @@ ORDER BY c.last_updated DESC;
 }
 
 class GetCommentsRow extends SqliteRow {
-  GetCommentsRow(super.data);
+  GetCommentsRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
   int get surahId => data['surah_id'] as int;
@@ -300,7 +301,7 @@ class GetCommentsRow extends SqliteRow {
 Future<List<GetJournalsRow>> performGetJournals(
   Database database,
 ) {
-  const query = '''
+  final query = '''
 SELECT  
     j.id, 
     j.title, 
@@ -317,7 +318,7 @@ ORDER BY j.entry_date DESC;
 }
 
 class GetJournalsRow extends SqliteRow {
-  GetJournalsRow(super.data);
+  GetJournalsRow(Map<String, dynamic> data) : super(data);
 
   String get title => data['title'] as String;
   int get id => data['id'] as int;
@@ -334,16 +335,16 @@ Future<List<GetJournalVersesRow>> performGetJournalVerses(
   String? translationCode,
 }) {
   final query = '''
-SELECT jv.id, jv.journal_id, v.verse_id, v.surah_id, v.$translationCode AS verse_translation
+SELECT jv.id, jv.journal_id, v.verse_id, v.surah_id, v.${translationCode} AS verse_translation
 FROM verses v
 INNER JOIN journal_verses jv ON v.verse_id = jv.verse_id AND v.surah_id = jv.surah_id
-WHERE jv.journal_id = $journalId;
+WHERE jv.journal_id = ${journalId};
 ''';
   return _readQuery(database, query, (d) => GetJournalVersesRow(d));
 }
 
 class GetJournalVersesRow extends SqliteRow {
-  GetJournalVersesRow(super.data);
+  GetJournalVersesRow(Map<String, dynamic> data) : super(data);
 
   int get id => data['id'] as int;
   int get journalId => data['journal_id'] as int;
@@ -362,13 +363,13 @@ Future<List<GetJournalReflectionsRow>> performGetJournalReflections(
   final query = '''
 SELECT reflections
 FROM journal
-WHERE id = $id;
+WHERE id = ${id};
 ''';
   return _readQuery(database, query, (d) => GetJournalReflectionsRow(d));
 }
 
 class GetJournalReflectionsRow extends SqliteRow {
-  GetJournalReflectionsRow(super.data);
+  GetJournalReflectionsRow(Map<String, dynamic> data) : super(data);
 
   String? get reflections => data['reflections'] as String?;
 }
@@ -384,13 +385,13 @@ Future<List<GetVersesIdsFromSuraRow>> performGetVersesIdsFromSura(
   final query = '''
 SELECT verse_id
 FROM verses
-WHERE surah_id = $surahId AND (verse_id = $verseId OR $verseId = '') AND verse_id > 0;
+WHERE surah_id = ${surahId} AND (verse_id = ${verseId} OR ${verseId} = '') AND verse_id > 0;
 ''';
   return _readQuery(database, query, (d) => GetVersesIdsFromSuraRow(d));
 }
 
 class GetVersesIdsFromSuraRow extends SqliteRow {
-  GetVersesIdsFromSuraRow(super.data);
+  GetVersesIdsFromSuraRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
 }
@@ -405,13 +406,13 @@ Future<List<GetSuraIdsRow>> performGetSuraIds(
   final query = '''
 SELECT id
 FROM surahs
-WHERE id = $surahId OR $surahId = '';
+WHERE id = ${surahId} OR ${surahId} = '';
 ''';
   return _readQuery(database, query, (d) => GetSuraIdsRow(d));
 }
 
 class GetSuraIdsRow extends SqliteRow {
-  GetSuraIdsRow(super.data);
+  GetSuraIdsRow(Map<String, dynamic> data) : super(data);
 
   int get id => data['id'] as int;
 }
@@ -431,14 +432,14 @@ SELECT
     comment_text,
     last_updated
 FROM comments
-WHERE surah_id = $surahId
+WHERE surah_id = ${surahId}
 ORDER BY last_updated DESC;
 ''';
   return _readQuery(database, query, (d) => GetCommentsSurahIdRow(d));
 }
 
 class GetCommentsSurahIdRow extends SqliteRow {
-  GetCommentsSurahIdRow(super.data);
+  GetCommentsSurahIdRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
   int get surahId => data['surah_id'] as int;
@@ -455,7 +456,7 @@ Future<List<GetVersesRow>> performGetVerses(
   String? translationCode,
 }) {
   final query = '''
-SELECT verse_id, surah_id, $translationCode AS verse_translation
+SELECT verse_id, surah_id, ${translationCode} AS verse_translation
 FROM verses
 ORDER BY surah_id, verse_id;
 ''';
@@ -463,7 +464,7 @@ ORDER BY surah_id, verse_id;
 }
 
 class GetVersesRow extends SqliteRow {
-  GetVersesRow(super.data);
+  GetVersesRow(Map<String, dynamic> data) : super(data);
 
   int get verseId => data['verse_id'] as int;
   int get surahId => data['surah_id'] as int;
@@ -488,7 +489,7 @@ FROM
 LEFT JOIN 
     collection_verses cv ON c.id = cv.collection_id
 WHERE 
-    c.type = '$type'
+    c.type = '${type}'
 GROUP BY 
     c.id, c.title
 ORDER BY c.id;
@@ -497,7 +498,7 @@ ORDER BY c.id;
 }
 
 class GetCollectionsByTypeRow extends SqliteRow {
-  GetCollectionsByTypeRow(super.data);
+  GetCollectionsByTypeRow(Map<String, dynamic> data) : super(data);
 
   int get id => data['id'] as int;
   String get title => data['title'] as String;
@@ -514,16 +515,16 @@ Future<List<GetCollectionVersesRow>> performGetCollectionVerses(
   String? translationCode,
 }) {
   final query = '''
-SELECT cv.id, cv.collection_id, v.verse_id, v.surah_id, v.$translationCode AS verse_translation
+SELECT cv.id, cv.collection_id, v.verse_id, v.surah_id, v.${translationCode} AS verse_translation
 FROM verses v
 INNER JOIN collection_verses cv ON v.verse_id = cv.verse_id AND v.surah_id = cv.surah_id
-WHERE cv.collection_id = $collectionId;
+WHERE cv.collection_id = ${collectionId};
 ''';
   return _readQuery(database, query, (d) => GetCollectionVersesRow(d));
 }
 
 class GetCollectionVersesRow extends SqliteRow {
-  GetCollectionVersesRow(super.data);
+  GetCollectionVersesRow(Map<String, dynamic> data) : super(data);
 
   int get id => data['id'] as int;
   int get collectionId => data['collection_id'] as int;
@@ -543,13 +544,13 @@ Future<List<SearchTextCountRow>> performSearchTextCount(
   final query = '''
 SELECT COUNT(*) AS total_results
 FROM verses
-WHERE verse_id > 0 AND ($translationCode LIKE '%$searchText%' OR verse_code = '$searchText');
+WHERE verse_id > 0 AND (${translationCode} LIKE '%${searchText}%' OR verse_code = '${searchText}');
 ''';
   return _readQuery(database, query, (d) => SearchTextCountRow(d));
 }
 
 class SearchTextCountRow extends SqliteRow {
-  SearchTextCountRow(super.data);
+  SearchTextCountRow(Map<String, dynamic> data) : super(data);
 
   int get totalResults => data['total_results'] as int;
 }
@@ -565,19 +566,19 @@ Future<List<GetNamesByTypeRow>> performGetNamesByType(
   final query = '''
 SELECT 
     IFNULL(ar, '') AS ar,
-    IFNULL($languageCode, '') AS translation,
+    IFNULL(${languageCode}, '') AS translation,
     IFNULL(transliteration, '') AS transliteration,
     IFNULL(verses, '') AS verses,
     IFNULL(audio_url, '') AS audio_url
 FROM  names
-WHERE type = '$type'
+WHERE type = '${type}'
 ORDER BY id;
 ''';
   return _readQuery(database, query, (d) => GetNamesByTypeRow(d));
 }
 
 class GetNamesByTypeRow extends SqliteRow {
-  GetNamesByTypeRow(super.data);
+  GetNamesByTypeRow(Map<String, dynamic> data) : super(data);
 
   String get ar => data['ar'] as String;
   String get translation => data['translation'] as String;
@@ -596,13 +597,13 @@ Future<List<GetSurahsRow>> performGetSurahs(
   final query = '''
 SELECT id,verses_count,bismillah_pre 
 FROM surahs
-WHERE id = $surahId OR $surahId = '';
+WHERE id = ${surahId} OR ${surahId} = '';
 ''';
   return _readQuery(database, query, (d) => GetSurahsRow(d));
 }
 
 class GetSurahsRow extends SqliteRow {
-  GetSurahsRow(super.data);
+  GetSurahsRow(Map<String, dynamic> data) : super(data);
 
   int get id => data['id'] as int;
   int get versesCount => data['verses_count'] as int;
@@ -619,13 +620,14 @@ Future<List<GetRecitersRow>> performGetReciters(
   final query = '''
 SELECT name,code,audio_url
 FROM reciters
-WHERE name LIKE '%$searchText%';
+WHERE name LIKE '%${searchText}%'
+;
 ''';
   return _readQuery(database, query, (d) => GetRecitersRow(d));
 }
 
 class GetRecitersRow extends SqliteRow {
-  GetRecitersRow(super.data);
+  GetRecitersRow(Map<String, dynamic> data) : super(data);
 
   String get name => data['name'] as String;
   String get code => data['code'] as String;
@@ -643,14 +645,14 @@ Future<List<GetWordsRow>> performGetWords(
   final query = '''
 SELECT surah_id, verse_id, position_id, ar, transliteration
 FROM words
-WHERE surah_id = $surahId AND verse_id = $verseId
+WHERE surah_id = ${surahId} AND verse_id = ${verseId}
 ORDER BY position_id;
 ''';
   return _readQuery(database, query, (d) => GetWordsRow(d));
 }
 
 class GetWordsRow extends SqliteRow {
-  GetWordsRow(super.data);
+  GetWordsRow(Map<String, dynamic> data) : super(data);
 
   int get surahId => data['surah_id'] as int;
   int get verseId => data['verse_id'] as int;
@@ -670,13 +672,13 @@ Future<List<VerseCommentCountRow>> performVerseCommentCount(
   final query = '''
 SELECT COUNT(id) as comment_count
 FROM comments
-WHERE surah_id = $surahId AND verse_id = $verseId
+WHERE surah_id = ${surahId} AND verse_id = ${verseId}
 ''';
   return _readQuery(database, query, (d) => VerseCommentCountRow(d));
 }
 
 class VerseCommentCountRow extends SqliteRow {
-  VerseCommentCountRow(super.data);
+  VerseCommentCountRow(Map<String, dynamic> data) : super(data);
 
   int get commentCount => data['comment_count'] as int;
 }
@@ -701,8 +703,8 @@ FROM
 LEFT JOIN 
     collection_verses cv 
     ON c.id = cv.collection_id 
-    AND cv.surah_id = $surahId 
-    AND cv.verse_id = $verseId
+    AND cv.surah_id = ${surahId} 
+    AND cv.verse_id = ${verseId}
 WHERE 
     c.type = 'bookmark';
 ''';
@@ -710,7 +712,7 @@ WHERE
 }
 
 class CheckBookmarkRow extends SqliteRow {
-  CheckBookmarkRow(super.data);
+  CheckBookmarkRow(Map<String, dynamic> data) : super(data);
 
   int get hasBookMark => data['hasBookMark'] as int;
   int get collectionId => data['collection_id'] as int;
@@ -727,14 +729,14 @@ Future<List<GetArabicWordsRow>> performGetArabicWords(
   final query = '''
 SELECT surah_id, verse_id, position_id, ar
 FROM words
-WHERE surah_id = $surahId AND verse_id = $verseId
+WHERE surah_id = ${surahId} AND verse_id = ${verseId}
 ORDER BY position_id;
 ''';
   return _readQuery(database, query, (d) => GetArabicWordsRow(d));
 }
 
 class GetArabicWordsRow extends SqliteRow {
-  GetArabicWordsRow(super.data);
+  GetArabicWordsRow(Map<String, dynamic> data) : super(data);
 
   int get surahId => data['surah_id'] as int;
   int get verseId => data['verse_id'] as int;
@@ -749,7 +751,7 @@ class GetArabicWordsRow extends SqliteRow {
 Future<List<GetDictionaryRow>> performGetDictionary(
   Database database,
 ) {
-  const query = '''
+  final query = '''
 SELECT surah_id, verse_id, position_id, ar, transliteration, COUNT(*) AS frequency
 FROM words w
 WHERE w.verse_id > 0
@@ -760,7 +762,7 @@ ORDER BY frequency DESC;
 }
 
 class GetDictionaryRow extends SqliteRow {
-  GetDictionaryRow(super.data);
+  GetDictionaryRow(Map<String, dynamic> data) : super(data);
 
   int get surahId => data['surah_id'] as int;
   int get verseId => data['verse_id'] as int;
@@ -771,3 +773,25 @@ class GetDictionaryRow extends SqliteRow {
 }
 
 /// END GETDICTIONARY
+
+/// BEGIN GETGOALSPRAYERS
+Future<List<GetGoalsPrayersRow>> performGetGoalsPrayers(
+  Database database, {
+  String? type,
+}) {
+  final query = '''
+SELECT id,type,title,description FROM goals_prayers WHERE type = '${type}';
+''';
+  return _readQuery(database, query, (d) => GetGoalsPrayersRow(d));
+}
+
+class GetGoalsPrayersRow extends SqliteRow {
+  GetGoalsPrayersRow(Map<String, dynamic> data) : super(data);
+
+  int get id => data['id'] as int;
+  String get type => data['type'] as String;
+  String get title => data['title'] as String;
+  String get description => data['description'] as String;
+}
+
+/// END GETGOALSPRAYERS

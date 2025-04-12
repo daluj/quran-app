@@ -19,6 +19,9 @@ class SearchWidget extends StatefulWidget {
 
   final String? searchText;
 
+  static String routeName = 'search';
+  static String routePath = '/search';
+
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
 }
@@ -104,7 +107,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                 focusNode: _model.searchFocusNode,
                 onChanged: (_) => EasyDebounce.debounce(
                   '_model.searchTextController',
-                  const Duration(milliseconds: 100),
+                  Duration(milliseconds: 100),
                   () => safeSetState(() {}),
                 ),
                 autofocus: true,
@@ -132,14 +135,14 @@ class _SearchWidgetState extends State<SearchWidget> {
                             FlutterFlowTheme.of(context).labelMediumFamily),
                       ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Color(0x00000000),
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Color(0x00000000),
                       width: 1.0,
                     ),
@@ -184,7 +187,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                 validator:
                     _model.searchTextControllerValidator.asValidator(context),
               ),
-              actions: const [],
+              actions: [],
               centerTitle: true,
               elevation: 0.0,
             ),
@@ -197,13 +200,13 @@ class _SearchWidgetState extends State<SearchWidget> {
                     FlutterFlowTheme.of(context).primary,
                     FlutterFlowTheme.of(context).secondary
                   ],
-                  stops: const [0.0, 1.0],
-                  begin: const AlignmentDirectional(0.0, -1.0),
-                  end: const AlignmentDirectional(0, 1.0),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,7 +277,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                 BorderRadius.circular(8.0),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
+                                            padding: EdgeInsets.all(6.0),
                                             child: Text(
                                               wrapGetCollectionsByTypeRow.title,
                                               style:
@@ -312,7 +315,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                     if (searchSearchTextRowList.isNotEmpty)
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -340,7 +343,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                   ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   4.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 'results found',
@@ -367,7 +370,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                         builder: (context) {
                           final resultVerses = searchSearchTextRowList.toList();
                           if (resultVerses.isEmpty) {
-                            return const Center(
+                            return Center(
                               child: EmptyResultsWidget(
                                 message:
                                     'Search for words, text or verse e.g 2:155',
@@ -380,7 +383,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
                             itemCount: resultVerses.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 18.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 18.0),
                             itemBuilder: (context, resultVersesIndex) {
                               final resultVersesItem =
                                   resultVerses[resultVersesIndex];
@@ -407,8 +410,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                       ),
                     ),
                   ]
-                      .divide(const SizedBox(height: 12.0))
-                      .around(const SizedBox(height: 12.0)),
+                      .divide(SizedBox(height: 12.0))
+                      .around(SizedBox(height: 12.0)),
                 ),
               ),
             ),

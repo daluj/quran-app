@@ -3,6 +3,7 @@ import '/components/empty_results_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,6 +13,9 @@ export 'comments_model.dart';
 
 class CommentsWidget extends StatefulWidget {
   const CommentsWidget({super.key});
+
+  static String routeName = 'comments';
+  static String routePath = '/comments';
 
   @override
   State<CommentsWidget> createState() => _CommentsWidgetState();
@@ -72,7 +76,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                       FlutterFlowTheme.of(context).headlineMediumFamily),
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -85,13 +89,13 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +119,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                       }
                       final listViewGetCommentsRowList = snapshot.data!;
                       if (listViewGetCommentsRowList.isEmpty) {
-                        return const Center(
+                        return Center(
                           child: EmptyResultsWidget(
                             message: 'Verses with comments will appear here',
                             title: 'Waiting for comments',
@@ -124,7 +128,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                       }
 
                       return ListView.separated(
-                        padding: const EdgeInsets.fromLTRB(
+                        padding: EdgeInsets.fromLTRB(
                           0,
                           0,
                           0,
@@ -132,7 +136,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                         ),
                         scrollDirection: Axis.vertical,
                         itemCount: listViewGetCommentsRowList.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+                        separatorBuilder: (_, __) => SizedBox(height: 12.0),
                         itemBuilder: (context, listViewIndex) {
                           final listViewGetCommentsRow =
                               listViewGetCommentsRowList[listViewIndex];
@@ -146,7 +150,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'Quran',
+                                    QuranWidget.routeName,
                                     queryParameters: {
                                       'surahId': serializeParam(
                                         listViewGetCommentsRow.surahId,
@@ -164,7 +168,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                     borderRadius: BorderRadius.circular(18.0),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -224,7 +228,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                             ),
                                             Flexible(
                                               child: Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     1.0, 0.0),
                                                 child: RichText(
                                                   textScaler:
@@ -280,7 +284,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(-1.0, 0.0),
+                                              AlignmentDirectional(-1.0, 0.0),
                                           child: Text(
                                             listViewGetCommentsRow
                                                             .commentText !=
@@ -293,8 +297,11 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                 .labelLarge
                                                 .override(
                                                   fontFamily: 'GFS Didot',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
                                                   letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
+                                                  fontWeight: FontWeight.normal,
                                                   useGoogleFonts:
                                                       GoogleFonts.asMap()
                                                           .containsKey(
@@ -345,7 +352,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                                       .bodyMediumFamily),
                                                         ),
                                                   ),
-                                                  const TextSpan(
+                                                  TextSpan(
                                                     text: ' at ',
                                                     style: TextStyle(),
                                                   ),
@@ -360,7 +367,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                                   context)
                                                               .languageCode,
                                                     ),
-                                                    style: const TextStyle(),
+                                                    style: TextStyle(),
                                                   )
                                                 ],
                                                 style:
@@ -405,23 +412,23 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                               builder:
                                                                   (alertDialogContext) {
                                                                 return AlertDialog(
-                                                                  title: const Text(
+                                                                  title: Text(
                                                                       'Delete Comment'),
-                                                                  content: const Text(
+                                                                  content: Text(
                                                                       'Are you sure you want to delete this comment?'),
                                                                   actions: [
                                                                     TextButton(
                                                                       onPressed: () => Navigator.pop(
                                                                           alertDialogContext,
                                                                           false),
-                                                                      child: const Text(
+                                                                      child: Text(
                                                                           'No'),
                                                                     ),
                                                                     TextButton(
                                                                       onPressed: () => Navigator.pop(
                                                                           alertDialogContext,
                                                                           true),
-                                                                      child: const Text(
+                                                                      child: Text(
                                                                           'Yes'),
                                                                     ),
                                                                   ],
@@ -451,13 +458,13 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                                                     size: 24.0,
                                                   ),
                                                 ),
-                                              ].divide(const SizedBox(width: 12.0)),
+                                              ].divide(SizedBox(width: 12.0)),
                                             ),
                                           ],
                                         ),
                                       ]
-                                          .divide(const SizedBox(height: 12.0))
-                                          .around(const SizedBox(height: 12.0)),
+                                          .divide(SizedBox(height: 12.0))
+                                          .around(SizedBox(height: 12.0)),
                                     ),
                                   ),
                                 ),

@@ -61,15 +61,7 @@ class _LoadingComponentWidgetState extends State<LoadingComponentWidget>
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            FlutterFlowTheme.of(context).primary,
-            FlutterFlowTheme.of(context).tertiary
-          ],
-          stops: const [0.0, 1.0],
-          begin: const AlignmentDirectional(0.0, -1.0),
-          end: const AlignmentDirectional(0, 1.0),
-        ),
+        color: FlutterFlowTheme.of(context).tertiary,
       ),
       child: CircularPercentIndicator(
         percent: 0.8,

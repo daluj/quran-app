@@ -16,6 +16,9 @@ class VersesWidget extends StatefulWidget {
 
   final List<String>? surahVersesList;
 
+  static String routeName = 'verses';
+  static String routePath = '/verses';
+
   @override
   State<VersesWidget> createState() => _VersesWidgetState();
 }
@@ -64,7 +67,7 @@ class _VersesWidgetState extends State<VersesWidget> {
               context.safePop();
             },
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -77,13 +80,13 @@ class _VersesWidgetState extends State<VersesWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +119,7 @@ class _VersesWidgetState extends State<VersesWidget> {
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewGetVersesFromListRowList.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 18.0),
+                        separatorBuilder: (_, __) => SizedBox(height: 18.0),
                         itemBuilder: (context, listViewIndex) {
                           final listViewGetVersesFromListRow =
                               listViewGetVersesFromListRowList[listViewIndex];

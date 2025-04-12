@@ -1,5 +1,6 @@
 // Automatic FlutterFlow imports
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -51,6 +52,9 @@ Future<List<AudioItemStruct>> createAudioList(List<GetWordsRow> sqlRows) async {
         audioUrl: audioUrl,
         arabicText: arabicText,
         transliteration: transliteration,
+        surahId: surahId.toString(),
+        verseId: verseId.toString(),
+        positionId: positionId.toString(),
       ));
     }
   }

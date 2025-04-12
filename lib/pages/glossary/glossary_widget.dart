@@ -13,6 +13,9 @@ export 'glossary_model.dart';
 class GlossaryWidget extends StatefulWidget {
   const GlossaryWidget({super.key});
 
+  static String routeName = 'glossary';
+  static String routePath = '/glossary';
+
   @override
   State<GlossaryWidget> createState() => _GlossaryWidgetState();
 }
@@ -77,7 +80,7 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                       FlutterFlowTheme.of(context).headlineMediumFamily),
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -90,13 +93,13 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -109,7 +112,7 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                         focusNode: _model.glossarySearchFocusNode,
                         onChanged: (_) => EasyDebounce.debounce(
                           '_model.glossarySearchTextController',
-                          const Duration(milliseconds: 100),
+                          Duration(milliseconds: 100),
                           () => safeSetState(() {}),
                         ),
                         autofocus: false,
@@ -228,7 +231,7 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                       final glossaryGetGlossaryRowList = snapshot.data!;
 
                       return ListView.separated(
-                        padding: const EdgeInsets.fromLTRB(
+                        padding: EdgeInsets.fromLTRB(
                           0,
                           0,
                           0,
@@ -236,7 +239,7 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                         ),
                         scrollDirection: Axis.vertical,
                         itemCount: glossaryGetGlossaryRowList.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+                        separatorBuilder: (_, __) => SizedBox(height: 12.0),
                         itemBuilder: (context, glossaryIndex) {
                           final glossaryGetGlossaryRow =
                               glossaryGetGlossaryRowList[glossaryIndex];
@@ -248,7 +251,7 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Align(
-                                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                                  alignment: AlignmentDirectional(-1.0, 0.0),
                                   child: Text(
                                     glossaryGetGlossaryRow.word,
                                     style: FlutterFlowTheme.of(context)
@@ -270,9 +273,9 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                                  alignment: AlignmentDirectional(-1.0, 0.0),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 12.0, 0.0),
                                     child: Text(
                                       glossaryGetGlossaryRow.translationText,
@@ -283,6 +286,8 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMediumFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
                                             fontSize: FFAppState()
                                                 .translationFontSize
                                                 .toDouble(),
@@ -296,8 +301,8 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                                   ),
                                 ),
                               ]
-                                  .divide(const SizedBox(height: 12.0))
-                                  .around(const SizedBox(height: 12.0)),
+                                  .divide(SizedBox(height: 12.0))
+                                  .around(SizedBox(height: 12.0)),
                             ),
                           );
                         },
@@ -305,7 +310,7 @@ class _GlossaryWidgetState extends State<GlossaryWidget> {
                     },
                   ),
                 ),
-              ].divide(const SizedBox(height: 12.0)),
+              ].divide(SizedBox(height: 12.0)),
             ),
           ),
         ),

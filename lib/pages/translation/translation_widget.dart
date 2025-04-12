@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,9 @@ export 'translation_model.dart';
 
 class TranslationWidget extends StatefulWidget {
   const TranslationWidget({super.key});
+
+  static String routeName = 'translation';
+  static String routePath = '/translation';
 
   @override
   State<TranslationWidget> createState() => _TranslationWidgetState();
@@ -85,7 +89,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                       FlutterFlowTheme.of(context).headlineMediumFamily),
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -98,13 +102,13 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
+            padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -113,7 +117,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     child: Text(
                       'This translation of the Holy Quran was compiled with the sole objective of portraying the exact message of the original Arabic text in a contemporary reader-friendly English language. \n\nThe following guidelines were observed:',
                       textAlign: TextAlign.justify,
@@ -132,10 +136,10 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
                           child: ListView(
-                            padding: const EdgeInsets.fromLTRB(
+                            padding: EdgeInsets.fromLTRB(
                               0,
                               10.0,
                               0,
@@ -150,7 +154,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                     _model.expandableExpandableController1,
                                 child: ExpandablePanel(
                                   header: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
                                     child: Text(
                                       '1. A translation, not an interpretation',
@@ -235,7 +239,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                     _model.expandableExpandableController2,
                                 child: ExpandablePanel(
                                   header: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
                                     child: Text(
                                       '2. Absence of ideology, culture and current trends',
@@ -320,7 +324,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                     _model.expandableExpandableController3,
                                 child: ExpandablePanel(
                                   header: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
                                     child: Text(
                                       '3. Adherence to the grammatical rules of the English language',
@@ -405,7 +409,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                     _model.expandableExpandableController4,
                                 child: ExpandablePanel(
                                   header: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
                                     child: Text(
                                       '4. Arabic words that have no English equivalents',
@@ -571,7 +575,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                     _model.expandableExpandableController6,
                                 child: ExpandablePanel(
                                   header: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
                                     child: Text(
                                       '6. The Quran is its own dictionary',
@@ -651,7 +655,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(const SizedBox(height: 12.0)),
+                            ].divide(SizedBox(height: 12.0)),
                           ),
                         ),
                       ),
@@ -659,7 +663,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
                     child: Text(
                       'Special mention to God\'s Name: ',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -676,7 +680,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -723,7 +727,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                 ],
                               ),
                               expanded: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -746,7 +750,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                           ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -758,7 +762,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     19,
@@ -781,7 +785,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'I seek refuge in Al-Rahman from you, that you may be reverent',
@@ -811,11 +815,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -874,9 +878,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -896,7 +900,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     19,
@@ -919,7 +923,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'I fear that you will be touched by a punishment from Al-Rahman',
@@ -949,11 +953,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1012,9 +1016,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -1034,7 +1038,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     36,
@@ -1057,7 +1061,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'You can only warn the one who follows the Reminder and who fears Al-Rahman though unseen',
@@ -1087,11 +1091,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1150,9 +1154,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -1172,7 +1176,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     50,
@@ -1195,7 +1199,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'The one who feared Al-Rahman though unseen.',
@@ -1225,11 +1229,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1288,9 +1292,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -1310,7 +1314,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     19,
@@ -1333,7 +1337,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'They said, \"Al-Rahman has taken unto Himself a son.\" You have come up with something hideous. The heavens almost shatter from it, the earth to split open, and the mountains to crash down in ruins, for they claimed that Al-Rahman has a son when it is not befitting for Al-Rahman to take a son.',
@@ -1363,11 +1367,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1426,9 +1430,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -1448,7 +1452,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     36,
@@ -1471,7 +1475,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'If Al-Rahman willed any harm upon me, their intercession cannot avail me in any way, nor can they rescue me.',
@@ -1501,11 +1505,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1564,9 +1568,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -1586,7 +1590,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     19,
@@ -1609,7 +1613,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'Indeed, there is none in the heavens and the earth who comes to Al-Rahman as other than a servant.',
@@ -1639,11 +1643,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1702,9 +1706,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -1724,7 +1728,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     20,
@@ -1747,7 +1751,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'On that Day, they will follow the caller. He has no crookedness in him. All voices will be subdued before Al-Rahman, so you will hear nothing but whispers.',
@@ -1777,11 +1781,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1840,9 +1844,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -1862,7 +1866,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     67,
@@ -1885,7 +1889,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'Who is that who could be a force for you to support you other than Al-Rahman.',
@@ -1915,11 +1919,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1978,9 +1982,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -2000,7 +2004,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'Quran',
+                                                QuranWidget.routeName,
                                                 queryParameters: {
                                                   'surahId': serializeParam(
                                                     21,
@@ -2023,7 +2027,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Text(
                                                       'Say, \"Who can protect you by night and by day from the Al-Rahman?\"',
@@ -2053,11 +2057,11 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -2116,9 +2120,9 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                                                   ),
                                                 ]
                                                     .divide(
-                                                        const SizedBox(height: 12.0))
+                                                        SizedBox(height: 12.0))
                                                     .around(
-                                                        const SizedBox(height: 12.0)),
+                                                        SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
@@ -2153,7 +2157,7 @@ class _TranslationWidgetState extends State<TranslationWidget> {
                       ],
                     ),
                   ),
-                ].addToEnd(const SizedBox(height: 60.0)),
+                ].addToEnd(SizedBox(height: 60.0)),
               ),
             ),
           ),

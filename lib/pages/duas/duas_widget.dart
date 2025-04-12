@@ -4,6 +4,7 @@ import '/components/quran_verses_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,6 +15,9 @@ export 'duas_model.dart';
 
 class DuasWidget extends StatefulWidget {
   const DuasWidget({super.key});
+
+  static String routeName = 'duas';
+  static String routePath = '/duas';
 
   @override
   State<DuasWidget> createState() => _DuasWidgetState();
@@ -61,9 +65,9 @@ class _DuasWidgetState extends State<DuasWidget> {
                   },
                   child: Padding(
                     padding: MediaQuery.viewInsetsOf(context),
-                    child: SizedBox(
+                    child: Container(
                       height: MediaQuery.sizeOf(context).height * 0.3,
-                      child: const NewCollectionWidget(
+                      child: NewCollectionWidget(
                         type: 'duas',
                       ),
                     ),
@@ -140,9 +144,9 @@ class _DuasWidgetState extends State<DuasWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: SingleChildScrollView(
@@ -152,7 +156,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                 if (_model.showInfo)
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FutureBuilder<List<GetVersesFromListRow>>(
                       future: SQLiteManager.instance.getVersesFromList(
                         translationCode: 'en',
@@ -176,7 +180,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                         }
                         final carouselGetVersesFromListRowList = snapshot.data!;
 
-                        return SizedBox(
+                        return Container(
                           width: double.infinity,
                           height: 200.0,
                           child: CarouselSlider.builder(
@@ -229,7 +233,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                   ),
                 Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
                   child: FutureBuilder<List<GetCollectionsByTypeRow>>(
                     future: SQLiteManager.instance.getCollectionsByType(
                       type: 'duas',
@@ -257,7 +261,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewGetCollectionsByTypeRowList.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 18.0),
+                        separatorBuilder: (_, __) => SizedBox(height: 18.0),
                         itemBuilder: (context, listViewIndex) {
                           final listViewGetCollectionsByTypeRow =
                               listViewGetCollectionsByTypeRowList[
@@ -269,7 +273,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               context.pushNamed(
-                                'editCollection',
+                                EditCollectionWidget.routeName,
                                 queryParameters: {
                                   'collection': serializeParam(
                                     listViewGetCollectionsByTypeRow,
@@ -284,7 +288,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                                 borderRadius: BorderRadius.circular(18.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 12.0, 12.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -296,7 +300,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                                         children: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(-1.0, 0.0),
+                                                AlignmentDirectional(-1.0, 0.0),
                                             child: Text(
                                               listViewGetCollectionsByTypeRow
                                                   .title,
@@ -329,7 +333,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                                               Flexible(
                                                 child: Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           -1.0, 0.0),
                                                   child: RichText(
                                                     textScaler:
@@ -362,7 +366,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                                                                             .bodyMediumFamily),
                                                               ),
                                                         ),
-                                                        const TextSpan(
+                                                        TextSpan(
                                                           text: ' Verses',
                                                           style: TextStyle(),
                                                         )
@@ -393,7 +397,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                                               ),
                                             ],
                                           ),
-                                        ].divide(const SizedBox(height: 6.0)),
+                                        ].divide(SizedBox(height: 6.0)),
                                       ),
                                     ),
                                   ],
@@ -406,7 +410,7 @@ class _DuasWidgetState extends State<DuasWidget> {
                     },
                   ),
                 ),
-              ].addToEnd(const SizedBox(height: 78.0)),
+              ].addToEnd(SizedBox(height: 78.0)),
             ),
           ),
         ),

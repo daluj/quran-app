@@ -3,6 +3,7 @@ import '/components/quran_verses_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,6 +14,9 @@ export 'beautiful_names_model.dart';
 
 class BeautifulNamesWidget extends StatefulWidget {
   const BeautifulNamesWidget({super.key});
+
+  static String routeName = 'beautifulNames';
+  static String routePath = '/beautifulNames';
 
   @override
   State<BeautifulNamesWidget> createState() => _BeautifulNamesWidgetState();
@@ -105,9 +109,9 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: SingleChildScrollView(
@@ -138,7 +142,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                       }
                       final carouselGetVersesFromListRowList = snapshot.data!;
 
-                      return SizedBox(
+                      return Container(
                         width: double.infinity,
                         height: 150.0,
                         child: CarouselSlider.builder(
@@ -189,7 +193,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                   ),
                 Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
                   child: FutureBuilder<List<GetNamesByTypeRow>>(
                     future: SQLiteManager.instance.getNamesByType(
                       type: 'beautiful_names',
@@ -217,7 +221,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewGetNamesByTypeRowList.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 18.0),
+                        separatorBuilder: (_, __) => SizedBox(height: 18.0),
                         itemBuilder: (context, listViewIndex) {
                           final listViewGetNamesByTypeRow =
                               listViewGetNamesByTypeRowList[listViewIndex];
@@ -228,7 +232,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               context.pushNamed(
-                                'Quran',
+                                QuranWidget.routeName,
                                 queryParameters: {
                                   'surahId': serializeParam(
                                     (String verses) {
@@ -251,7 +255,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                                 borderRadius: BorderRadius.circular(18.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 12.0, 12.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -263,7 +267,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                                         children: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(-1.0, 0.0),
+                                                AlignmentDirectional(-1.0, 0.0),
                                             child: Text(
                                               listViewGetNamesByTypeRow
                                                   .transliteration,
@@ -292,7 +296,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(-1.0, 0.0),
+                                                AlignmentDirectional(-1.0, 0.0),
                                             child: Text(
                                               listViewGetNamesByTypeRow
                                                   .translation,
@@ -327,7 +331,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                                               Flexible(
                                                 child: Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           -1.0, 0.0),
                                                   child: RichText(
                                                     textScaler:
@@ -361,7 +365,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                                                           text:
                                                               listViewGetNamesByTypeRow
                                                                   .verses,
-                                                          style: const TextStyle(),
+                                                          style: TextStyle(),
                                                         )
                                                       ],
                                                       style:
@@ -390,7 +394,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                                               ),
                                             ],
                                           ),
-                                        ].divide(const SizedBox(height: 6.0)),
+                                        ].divide(SizedBox(height: 6.0)),
                                       ),
                                     ),
                                   ],
@@ -403,7 +407,7 @@ class _BeautifulNamesWidgetState extends State<BeautifulNamesWidget> {
                     },
                   ),
                 ),
-              ].divide(const SizedBox(height: 18.0)).addToEnd(const SizedBox(height: 18.0)),
+              ].divide(SizedBox(height: 18.0)).addToEnd(SizedBox(height: 18.0)),
             ),
           ),
         ),

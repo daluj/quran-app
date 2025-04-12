@@ -9,7 +9,7 @@ Future performAddComment(
 }) {
   final query = '''
 INSERT INTO comments (verse_id, surah_id,comment_text,last_updated)
-VALUES ($verseId, $surahId,'$commentText',strftime('%s', 'now'));
+VALUES (${verseId}, ${surahId},'${commentText}',strftime('%s', 'now'));
 ''';
   return database.rawQuery(query);
 }
@@ -26,11 +26,11 @@ Future performUpdateComment(
   final query = '''
 UPDATE comments
 SET 
-    surah_id = $surahId,
-    verse_id = $verseId,
-    comment_text = '$commentText',
+    surah_id = ${surahId},
+    verse_id = ${verseId},
+    comment_text = '${commentText}',
     last_updated = strftime('%s', 'now')
-WHERE surah_id = $surahId AND verse_id = $verseId;
+WHERE surah_id = ${surahId} AND verse_id = ${verseId};
 ''';
   return database.rawQuery(query);
 }
@@ -43,7 +43,7 @@ Future performDeleteComment(
   int? id,
 }) {
   final query = '''
-DELETE FROM comments WHERE id = $id;
+DELETE FROM comments WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -58,7 +58,7 @@ Future performNewJournalEntry(
 }) {
   final query = '''
 INSERT INTO journal (title,reflections,entry_date)
-VALUES ('$title','$reflections',strftime('%s', 'now'));
+VALUES ('${title}','${reflections}',strftime('%s', 'now'));
 ''';
   return database.rawQuery(query);
 }
@@ -74,8 +74,8 @@ Future performUpdateJournalTitle(
   final query = '''
 UPDATE journal
 SET 
-    title = '$title'
-WHERE id = $id;
+    title = '${title}'
+WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -88,7 +88,7 @@ Future performDeleteJournalEntry(
   int? id,
 }) {
   final query = '''
-DELETE FROM journal WHERE id = $id;
+DELETE FROM journal WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -101,7 +101,7 @@ Future performDeleteJournalVerse(
   int? id,
 }) {
   final query = '''
-DELETE FROM journal_verses WHERE id = $id;
+DELETE FROM journal_verses WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -117,7 +117,7 @@ Future performAddVerseJournal(
 }) {
   final query = '''
 INSERT OR IGNORE INTO journal_verses (journal_id,surah_id,verse_id)
-VALUES ('$journalId','$surahId','$verseId');
+VALUES ('${journalId}','${surahId}','${verseId}');
 ''';
   return database.rawQuery(query);
 }
@@ -133,8 +133,8 @@ Future performUpdateJournalReflections(
   final query = '''
 UPDATE journal
 SET 
-    reflections = '$reflections'
-WHERE id = $id;
+    reflections = '${reflections}'
+WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -147,7 +147,7 @@ Future performDeleteCollection(
   int? id,
 }) {
   final query = '''
-DELETE FROM collections WHERE id = $id;
+DELETE FROM collections WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -160,7 +160,7 @@ Future performDeleteCollectionVerse(
   int? id,
 }) {
   final query = '''
-DELETE FROM collection_verses WHERE id = $id;
+DELETE FROM collection_verses WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -175,7 +175,7 @@ Future performNewCollection(
 }) {
   final query = '''
 INSERT INTO collections (title,type,deletable)
-VALUES ('$title','$type',1);
+VALUES ('${title}','${type}',1);
 ''';
   return database.rawQuery(query);
 }
@@ -191,7 +191,7 @@ Future performAddVerseCollection(
 }) {
   final query = '''
 INSERT OR IGNORE INTO collection_verses (collection_id,surah_id,verse_id)
-VALUES ('$collectionId','$surahId','$verseId');
+VALUES ('${collectionId}','${surahId}','${verseId}');
 ''';
   return database.rawQuery(query);
 }
@@ -207,8 +207,8 @@ Future performUpdateCollectionTitle(
   final query = '''
 UPDATE collections
 SET 
-    title = '$title'
-WHERE id = $id;
+    title = '${title}'
+WHERE id = ${id};
 ''';
   return database.rawQuery(query);
 }
@@ -224,11 +224,40 @@ Future performDeleteBookmark(
 }) {
   final query = '''
 DELETE FROM collection_verses 
-WHERE collection_id = $collectionId 
-AND surah_id = $surahId 
-AND verse_id = $verseId;
+WHERE collection_id = ${collectionId} 
+AND surah_id = ${surahId} 
+AND verse_id = ${verseId};
 ''';
   return database.rawQuery(query);
 }
 
 /// END DELETEBOOKMARK
+
+/// BEGIN ADDGOALPRAYER
+Future performAddGoalPrayer(
+  Database database, {
+  String? title,
+  String? description,
+  String? type,
+}) {
+  final query = '''
+INSERT INTO goals_prayers (title, description,type)
+VALUES ('${title}','${description}','${type}');
+''';
+  return database.rawQuery(query);
+}
+
+/// END ADDGOALPRAYER
+
+/// BEGIN DELETEGOALPRAYER
+Future performDeleteGoalPrayer(
+  Database database, {
+  int? id,
+}) {
+  final query = '''
+DELETE FROM goals_prayers WHERE id = ${id};
+''';
+  return database.rawQuery(query);
+}
+
+/// END DELETEGOALPRAYER

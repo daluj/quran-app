@@ -1,5 +1,6 @@
 import '/components/quran_verses_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'duas_widget.dart' show DuasWidget;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

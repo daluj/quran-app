@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'quran_widget.dart' show QuranWidget;
 import 'package:flutter/material.dart';
 

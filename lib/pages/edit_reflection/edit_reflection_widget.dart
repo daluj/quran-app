@@ -21,6 +21,9 @@ class EditReflectionWidget extends StatefulWidget {
 
   final GetJournalsRow? journal;
 
+  static String routeName = 'editReflection';
+  static String routePath = '/editReflection';
+
   @override
   State<EditReflectionWidget> createState() => _EditReflectionWidgetState();
 }
@@ -120,14 +123,14 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                             FlutterFlowTheme.of(context).labelMediumFamily),
                       ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Color(0x00000000),
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Color(0x00000000),
                       width: 1.0,
                     ),
@@ -173,7 +176,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -237,7 +240,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                               .primaryText,
                                         ),
                                       ),
-                                      duration: const Duration(milliseconds: 4000),
+                                      duration: Duration(milliseconds: 4000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).primary,
                                     ),
@@ -281,19 +284,19 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('Delete Entry'),
-                                    content: const Text(
+                                    title: Text('Delete Entry'),
+                                    content: Text(
                                         'Are you sure you want to delete this entry?'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, false),
-                                        child: const Text('No'),
+                                        child: Text('No'),
                                       ),
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, true),
-                                        child: const Text('Yes'),
+                                        child: Text('Yes'),
                                       ),
                                     ],
                                   );
@@ -316,7 +319,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                           size: 24.0,
                         ),
                       ),
-                    ].divide(const SizedBox(width: 9.0)),
+                    ].divide(SizedBox(width: 9.0)),
                   ),
                 ),
               ],
@@ -332,20 +335,20 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                     FlutterFlowTheme.of(context).primary,
                     FlutterFlowTheme.of(context).secondary
                   ],
-                  stops: const [0.0, 1.0],
-                  begin: const AlignmentDirectional(0.0, -1.0),
-                  end: const AlignmentDirectional(0, 1.0),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 60.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 60.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(1.0, 0.0),
+                        alignment: AlignmentDirectional(1.0, 0.0),
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
@@ -373,7 +376,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                                   .headlineMediumFamily),
                                     ),
                               ),
-                              const TextSpan(
+                              TextSpan(
                                 text: ' at ',
                                 style: TextStyle(),
                               ),
@@ -385,7 +388,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                   locale:
                                       FFLocalizations.of(context).languageCode,
                                 ),
-                                style: const TextStyle(),
+                                style: TextStyle(),
                               )
                             ],
                             style: FlutterFlowTheme.of(context)
@@ -438,14 +441,14 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                         .labelMediumFamily),
                               ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1.0,
                             ),
@@ -492,7 +495,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                       ),
                       Flexible(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 0.0),
                           child: FutureBuilder<List<GetJournalVersesRow>>(
                             future: SQLiteManager.instance.getJournalVerses(
@@ -517,7 +520,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                               final listViewGetJournalVersesRowList =
                                   snapshot.data!;
                               if (listViewGetJournalVersesRowList.isEmpty) {
-                                return const Center(
+                                return Center(
                                   child: EmptyResultsWidget(
                                     message:
                                         'Verses added to this reflection will appear here.',
@@ -534,13 +537,13 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                 itemCount:
                                     listViewGetJournalVersesRowList.length,
                                 separatorBuilder: (_, __) =>
-                                    const SizedBox(height: 18.0),
+                                    SizedBox(height: 18.0),
                                 itemBuilder: (context, listViewIndex) {
                                   final listViewGetJournalVersesRow =
                                       listViewGetJournalVersesRowList[
                                           listViewIndex];
                                   return Stack(
-                                    alignment: const AlignmentDirectional(1.0, 1.0),
+                                    alignment: AlignmentDirectional(1.0, 1.0),
                                     children: [
                                       wrapWithModel(
                                         model:
@@ -568,10 +571,10 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                       if (_model.showSave)
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(1.0, 1.0),
+                                              AlignmentDirectional(1.0, 1.0),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 16.0, 12.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -586,9 +589,9 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                                           builder:
                                                               (alertDialogContext) {
                                                             return AlertDialog(
-                                                              title: const Text(
+                                                              title: Text(
                                                                   'Delete Verse'),
-                                                              content: const Text(
+                                                              content: Text(
                                                                   'Are you sure you want to delete this verse?'),
                                                               actions: [
                                                                 TextButton(
@@ -596,7 +599,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                                                       Navigator.pop(
                                                                           alertDialogContext,
                                                                           false),
-                                                                  child: const Text(
+                                                                  child: Text(
                                                                       'No'),
                                                                 ),
                                                                 TextButton(
@@ -604,7 +607,7 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                                                                       Navigator.pop(
                                                                           alertDialogContext,
                                                                           true),
-                                                                  child: const Text(
+                                                                  child: Text(
                                                                       'Yes'),
                                                                 ),
                                                               ],
@@ -644,8 +647,8 @@ class _EditReflectionWidgetState extends State<EditReflectionWidget> {
                         ),
                       ),
                     ]
-                        .divide(const SizedBox(height: 12.0))
-                        .around(const SizedBox(height: 12.0)),
+                        .divide(SizedBox(height: 12.0))
+                        .around(SizedBox(height: 12.0)),
                   ),
                 ),
               ),

@@ -2,11 +2,14 @@ import '/components/clear_data_widget.dart';
 import '/components/switch_mode_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'profile_component_model.dart';
 export 'profile_component_model.dart';
 
@@ -49,7 +52,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 60.0, 16.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(16.0, 60.0, 16.0, 0.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -69,9 +72,9 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                       Navigator.pop(context);
 
                       context.pushNamed(
-                        'reflections',
+                        ReflectionsWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.fade,
                           ),
@@ -115,7 +118,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 14.0)),
+                        ].divide(SizedBox(width: 14.0)),
                       ),
                     ),
                   ),
@@ -127,7 +130,15 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                     onTap: () async {
                       Navigator.pop(context);
 
-                      context.pushNamed('comments');
+                      context.pushNamed(
+                        GoalsAndPrayersWidget.routeName,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
                     },
                     child: Container(
                       width: double.infinity,
@@ -141,7 +152,62 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         children: [
                           Expanded(
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: FaIcon(
+                                FontAwesomeIcons.road,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 20.0,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 9,
+                            child: Text(
+                              'Goals & Prayers',
+                              style: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .labelMediumFamily,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    fontSize: 20.0,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .labelMediumFamily),
+                                  ),
+                            ),
+                          ),
+                        ].divide(SizedBox(width: 14.0)),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      Navigator.pop(context);
+
+                      context.pushNamed(CommentsWidget.routeName);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FaIcon(
                                 FontAwesomeIcons.solidComment,
                                 color:
@@ -170,7 +236,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 14.0)),
+                        ].divide(SizedBox(width: 14.0)),
                       ),
                     ),
                   ),
@@ -182,7 +248,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                     onTap: () async {
                       Navigator.pop(context);
 
-                      context.pushNamed('bookmarks');
+                      context.pushNamed(BookmarksWidget.routeName);
                     },
                     child: Container(
                       width: double.infinity,
@@ -221,7 +287,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 14.0)),
+                        ].divide(SizedBox(width: 14.0)),
                       ),
                     ),
                   ),
@@ -247,9 +313,9 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: SizedBox(
+                            child: Container(
                               height: MediaQuery.sizeOf(context).height * 0.2,
-                              child: const ClearDataWidget(),
+                              child: ClearDataWidget(),
                             ),
                           );
                         },
@@ -267,7 +333,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         children: [
                           Expanded(
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FaIcon(
                                 FontAwesomeIcons.database,
                                 color:
@@ -296,7 +362,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 14.0)),
+                        ].divide(SizedBox(width: 14.0)),
                       ),
                     ),
                   ),
@@ -316,9 +382,9 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                       Navigator.pop(context);
 
                       context.pushNamed(
-                        'translation',
+                        TranslationWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.fade,
                           ),
@@ -337,7 +403,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         children: [
                           Expanded(
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.translate_rounded,
                                 color:
@@ -366,7 +432,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 9.0)),
+                        ].divide(SizedBox(width: 9.0)),
                       ),
                     ),
                   ),
@@ -379,9 +445,9 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                       Navigator.pop(context);
 
                       context.pushNamed(
-                        'appInfo',
+                        AppInfoWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.fade,
                           ),
@@ -400,7 +466,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         children: [
                           Expanded(
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: FaIcon(
                                 FontAwesomeIcons.infoCircle,
                                 color:
@@ -429,7 +495,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 9.0)),
+                        ].divide(SizedBox(width: 9.0)),
                       ),
                     ),
                   ),
@@ -454,7 +520,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         children: [
                           Expanded(
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.question_answer,
                                 color:
@@ -483,7 +549,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 9.0)),
+                        ].divide(SizedBox(width: 9.0)),
                       ),
                     ),
                   ),
@@ -509,7 +575,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         children: [
                           Expanded(
                             child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.map_rounded,
                                 color:
@@ -538,7 +604,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(const SizedBox(width: 9.0)),
+                        ].divide(SizedBox(width: 9.0)),
                       ),
                     ),
                   ),
@@ -568,20 +634,20 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                               builder: (context) {
                                 return Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.3,
-                                    child: const SwitchModeWidget(),
+                                  child: Container(
+                                    height: MediaQuery.sizeOf(context).height *
+                                        0.45,
+                                    child: SwitchModeWidget(),
                                   ),
                                 );
                               },
                             ).then((value) => safeSetState(() {}));
                           },
-                          child: SizedBox(
+                          child: Container(
                             width: 48.0,
                             height: 48.0,
                             child: Stack(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               children: [
                                 if (Theme.of(context).brightness ==
                                     Brightness.light)
@@ -603,16 +669,66 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                             ),
                           ),
                         ),
-                      ].divide(const SizedBox(width: 9.0)),
+                      ].divide(SizedBox(width: 9.0)),
                     ),
                   ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Builder(
+                          builder: (context) => Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                45.0, 0.0, 45.0, 0.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                await Share.share(
+                                  FFAppConstants.PlayStoreAppLink,
+                                  sharePositionOrigin:
+                                      getWidgetBoundingBox(context),
+                                );
+                              },
+                              text: 'Share the App',
+                              icon: Icon(
+                                Icons.share_rounded,
+                                size: 24.0,
+                              ),
+                              options: FFButtonOptions(
+                                height: 40.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
+                                elevation: 0.0,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ]
-                    .divide(const SizedBox(height: 12.0))
-                    .addToEnd(const SizedBox(height: 10.0)),
+                    .divide(SizedBox(height: 12.0))
+                    .addToEnd(SizedBox(height: 10.0)),
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -628,7 +744,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                               FlutterFlowTheme.of(context).bodyMediumFamily),
                         ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 3.0, 0.0),
                     child: Icon(
                       Icons.favorite,
@@ -651,7 +767,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -669,7 +785,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                         ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                     child: Text(
                       valueOrDefault<String>(
                         _model.appVersion,
@@ -689,7 +805,7 @@ class _ProfileComponentWidgetState extends State<ProfileComponentWidget> {
                 ],
               ),
             ),
-          ].divide(const SizedBox(height: 10.0)),
+          ].divide(SizedBox(height: 10.0)),
         ),
       ),
     );

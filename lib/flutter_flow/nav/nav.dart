@@ -7,10 +7,11 @@ import '/backend/schema/structs/index.dart';
 
 import '/backend/sqlite/sqlite_manager.dart';
 
-import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -41,7 +42,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       errorBuilder: (context, state) => appStateNotifier.showSplashImage
           ? Builder(
               builder: (context) => Container(
-                color: FlutterFlowTheme.of(context).tertiary,
+                color: FlutterFlowTheme.of(context).secondary,
                 child: Center(
                   child: Image.asset(
                     'assets/images/dawn_white.png',
@@ -51,7 +52,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
               ),
             )
-          : const NavBarPage(),
+          : NavBarPage(),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -59,7 +60,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => appStateNotifier.showSplashImage
               ? Builder(
                   builder: (context) => Container(
-                    color: FlutterFlowTheme.of(context).tertiary,
+                    color: FlutterFlowTheme.of(context).secondary,
                     child: Center(
                       child: Image.asset(
                         'assets/images/dawn_white.png',
@@ -69,23 +70,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     ),
                   ),
                 )
-              : const NavBarPage(),
+              : NavBarPage(),
         ),
         FFRoute(
-          name: 'Explore',
-          path: '/explore',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Explore')
-              : ExploreWidget(
-                  initialTab: params.getParam(
-                    'initialTab',
-                    ParamType.int,
-                  ),
-                ),
-        ),
-        FFRoute(
-          name: 'verses',
-          path: '/verses',
+          name: VersesWidget.routeName,
+          path: VersesWidget.routePath,
           builder: (context, params) => VersesWidget(
             surahVersesList: params.getParam<String>(
               'surahVersesList',
@@ -95,28 +84,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'translation',
-          path: '/translation',
-          builder: (context, params) => const TranslationWidget(),
+          name: TranslationWidget.routeName,
+          path: TranslationWidget.routePath,
+          builder: (context, params) => TranslationWidget(),
         ),
         FFRoute(
-          name: 'appInfo',
-          path: '/appInfo',
-          builder: (context, params) => const AppInfoWidget(),
+          name: AppInfoWidget.routeName,
+          path: AppInfoWidget.routePath,
+          builder: (context, params) => AppInfoWidget(),
         ),
         FFRoute(
-          name: 'Home',
-          path: '/home',
+          name: HomeWidget.routeName,
+          path: HomeWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Home')
-              : const NavBarPage(
+              ? NavBarPage(initialPage: 'Home')
+              : NavBarPage(
                   initialPage: 'Home',
                   page: HomeWidget(),
                 ),
         ),
         FFRoute(
-          name: 'search',
-          path: '/search',
+          name: SearchWidget.routeName,
+          path: SearchWidget.routePath,
           builder: (context, params) => SearchWidget(
             searchText: params.getParam(
               'searchText',
@@ -125,13 +114,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'reflections',
-          path: '/reflections',
-          builder: (context, params) => const ReflectionsWidget(),
+          name: ReflectionsWidget.routeName,
+          path: ReflectionsWidget.routePath,
+          builder: (context, params) => ReflectionsWidget(),
         ),
         FFRoute(
-          name: 'editReflection',
-          path: '/editReflection',
+          name: EditReflectionWidget.routeName,
+          path: EditReflectionWidget.routePath,
           builder: (context, params) => EditReflectionWidget(
             journal: params.getParam<GetJournalsRow>(
               'journal',
@@ -140,27 +129,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'duas',
-          path: '/duas',
-          builder: (context, params) => const DuasWidget(),
+          name: DuasWidget.routeName,
+          path: DuasWidget.routePath,
+          builder: (context, params) => DuasWidget(),
         ),
         FFRoute(
-          name: 'comments',
-          path: '/comments',
-          builder: (context, params) => const CommentsWidget(),
+          name: CommentsWidget.routeName,
+          path: CommentsWidget.routePath,
+          builder: (context, params) => CommentsWidget(),
         ),
         FFRoute(
-          name: 'learnArabic',
-          path: '/learnArabic',
+          name: LearnArabicWidget.routeName,
+          path: LearnArabicWidget.routePath,
+          builder: (context, params) => LearnArabicWidget(),
+        ),
+        FFRoute(
+          name: QuranWidget.routeName,
+          path: QuranWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'learnArabic')
-              : const LearnArabicWidget(),
-        ),
-        FFRoute(
-          name: 'Quran',
-          path: '/quran',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Quran')
+              ? NavBarPage(initialPage: 'Quran')
               : NavBarPage(
                   initialPage: 'Quran',
                   page: QuranWidget(
@@ -176,18 +163,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
         ),
         FFRoute(
-          name: 'newReflection',
-          path: '/newReflection',
-          builder: (context, params) => const NewReflectionWidget(),
+          name: NewReflectionWidget.routeName,
+          path: NewReflectionWidget.routePath,
+          builder: (context, params) => NewReflectionWidget(),
         ),
         FFRoute(
-          name: 'arabicAlphabet',
-          path: '/arabicAlphabet',
-          builder: (context, params) => const ArabicAlphabetWidget(),
+          name: ArabicAlphabetWidget.routeName,
+          path: ArabicAlphabetWidget.routePath,
+          builder: (context, params) => ArabicAlphabetWidget(),
         ),
         FFRoute(
-          name: 'editCollection',
-          path: '/editCollection',
+          name: EditCollectionWidget.routeName,
+          path: EditCollectionWidget.routePath,
           builder: (context, params) => EditCollectionWidget(
             collection: params.getParam<GetCollectionsByTypeRow>(
               'collection',
@@ -196,33 +183,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'glossary',
-          path: '/glossary',
-          builder: (context, params) => const GlossaryWidget(),
+          name: GlossaryWidget.routeName,
+          path: GlossaryWidget.routePath,
+          builder: (context, params) => GlossaryWidget(),
         ),
         FFRoute(
-          name: 'beautifulNames',
-          path: '/beautifulNames',
-          builder: (context, params) => const BeautifulNamesWidget(),
+          name: BeautifulNamesWidget.routeName,
+          path: BeautifulNamesWidget.routePath,
+          builder: (context, params) => BeautifulNamesWidget(),
         ),
         FFRoute(
-          name: 'basics',
-          path: '/basics',
-          builder: (context, params) => const BasicsWidget(),
+          name: QuranicSalatWidget.routeName,
+          path: QuranicSalatWidget.routePath,
+          builder: (context, params) => QuranicSalatWidget(),
         ),
         FFRoute(
-          name: 'quranicSalat',
-          path: '/quranicSalat',
-          builder: (context, params) => const QuranicSalatWidget(),
-        ),
-        FFRoute(
-          name: 'quranInitials',
-          path: '/quranInitials',
-          builder: (context, params) => const QuranInitialsWidget(),
-        ),
-        FFRoute(
-          name: 'verseComments',
-          path: '/verseComments',
+          name: VerseCommentsWidget.routeName,
+          path: VerseCommentsWidget.routePath,
           builder: (context, params) => VerseCommentsWidget(
             surahId: params.getParam(
               'surahId',
@@ -235,14 +212,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'bookmarks',
-          path: '/bookmarks',
-          builder: (context, params) => const BookmarksWidget(),
+          name: BookmarksWidget.routeName,
+          path: BookmarksWidget.routePath,
+          builder: (context, params) => BookmarksWidget(),
         ),
         FFRoute(
-          name: 'quranDictionary',
-          path: '/quranDictionary',
-          builder: (context, params) => const QuranDictionaryWidget(),
+          name: CallGodWidget.routeName,
+          path: CallGodWidget.routePath,
+          builder: (context, params) => CallGodWidget(),
+        ),
+        FFRoute(
+          name: GoalsAndPrayersWidget.routeName,
+          path: GoalsAndPrayersWidget.routePath,
+          builder: (context, params) => GoalsAndPrayersWidget(),
+        ),
+        FFRoute(
+          name: ExploreWidget.routeName,
+          path: ExploreWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'Explore')
+              : ExploreWidget(
+                  initialTab: params.getParam(
+                    'initialTab',
+                    ParamType.int,
+                  ),
+                ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -408,7 +402,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(
+  static TransitionInfo appDefault() => TransitionInfo(
         hasTransition: true,
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 200),

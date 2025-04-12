@@ -5,6 +5,7 @@ import '/components/words_player_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,9 +24,9 @@ class QuranSuraVerseWidget extends StatefulWidget {
     required this.hasBookMark,
     required this.bookmarkCollectionId,
     required this.ar,
-  })  : suraId = suraId ?? 0,
-        verseId = verseId ?? 0,
-        commentCount = commentCount ?? 0;
+  })  : this.suraId = suraId ?? 0,
+        this.verseId = verseId ?? 0,
+        this.commentCount = commentCount ?? 0;
 
   final int suraId;
   final int verseId;
@@ -78,7 +79,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -89,7 +90,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                     children: [
                       if (widget.verseId > 0)
                         Align(
-                          alignment: const AlignmentDirectional(1.0, 0.0),
+                          alignment: AlignmentDirectional(1.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -105,7 +106,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                   builder: (context) {
                                     return Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: SizedBox(
+                                      child: Container(
                                         height:
                                             MediaQuery.sizeOf(context).height *
                                                 0.36,
@@ -126,9 +127,9 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                             child: Container(
                               width: 48.0,
                               height: 48.0,
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: Align(
-                                alignment: const AlignmentDirectional(1.0, 0.0),
+                                alignment: AlignmentDirectional(1.0, 0.0),
                                 child: Icon(
                                   Icons.menu_rounded,
                                   color: FlutterFlowTheme.of(context).verseIcon,
@@ -141,9 +142,9 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                     ],
                   ),
                 if (FFAppState().showArabicText &&
-                    ((widget.ar!).trim() != ''))
+                    ('${(widget.ar!).trim()}' != ''))
                   Align(
-                    alignment: const AlignmentDirectional(1.0, 0.0),
+                    alignment: AlignmentDirectional(1.0, 0.0),
                     child: Text(
                       widget.ar!,
                       textAlign: TextAlign.end,
@@ -173,7 +174,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                         widget.translation != '') &&
                     FFAppState().showTranslation)
                   Align(
-                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                    alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Text(
                       valueOrDefault<String>(
                         widget.translation,
@@ -211,7 +212,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 context.pushNamed(
-                                  'verseComments',
+                                  VerseCommentsWidget.routeName,
                                   queryParameters: {
                                     'surahId': serializeParam(
                                       widget.suraId,
@@ -223,7 +224,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                     ),
                                   }.withoutNulls,
                                   extra: <String, dynamic>{
-                                    kTransitionInfoKey: const TransitionInfo(
+                                    kTransitionInfoKey: TransitionInfo(
                                       hasTransition: true,
                                       transitionType:
                                           PageTransitionType.bottomToTop,
@@ -233,16 +234,16 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                               },
                               child: Container(
                                 height: 40.0,
-                                constraints: const BoxConstraints(
+                                constraints: BoxConstraints(
                                   minWidth: 24.0,
                                 ),
-                                decoration: const BoxDecoration(),
+                                decoration: BoxDecoration(),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Align(
                                       alignment:
-                                          const AlignmentDirectional(-1.0, 0.0),
+                                          AlignmentDirectional(-1.0, 0.0),
                                       child: FaIcon(
                                         FontAwesomeIcons.comment,
                                         color: FlutterFlowTheme.of(context)
@@ -268,12 +269,12 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                                         .bodyMediumFamily),
                                           ),
                                     ),
-                                  ].divide(const SizedBox(width: 6.0)),
+                                  ].divide(SizedBox(width: 6.0)),
                                 ),
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -293,7 +294,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                               .primaryText,
                                         ),
                                       ),
-                                      duration: const Duration(milliseconds: 4000),
+                                      duration: Duration(milliseconds: 4000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).primary,
                                     ),
@@ -302,7 +303,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                 child: Container(
                                   width: 48.0,
                                   height: 48.0,
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: Icon(
                                     Icons.menu_book_rounded,
                                     color:
@@ -313,7 +314,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -333,7 +334,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                               .primaryText,
                                         ),
                                       ),
-                                      duration: const Duration(milliseconds: 4000),
+                                      duration: Duration(milliseconds: 4000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).primary,
                                     ),
@@ -342,7 +343,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                 child: Container(
                                   width: 48.0,
                                   height: 48.0,
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: Icon(
                                     Icons.mic_none,
                                     color:
@@ -352,14 +353,14 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            Container(
                               width: 48.0,
                               height: 48.0,
                               child: Stack(
                                 children: [
                                   if (!_model.hasBookMark)
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -389,7 +390,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  const Duration(milliseconds: 4000),
+                                                  Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
@@ -399,7 +400,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                         child: Container(
                                           width: 48.0,
                                           height: 48.0,
-                                          decoration: const BoxDecoration(),
+                                          decoration: BoxDecoration(),
                                           child: Icon(
                                             Icons.bookmark_border,
                                             color: FlutterFlowTheme.of(context)
@@ -411,7 +412,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                     ),
                                   if (_model.hasBookMark)
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -441,7 +442,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  const Duration(milliseconds: 4000),
+                                                  Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
@@ -451,7 +452,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                         child: Container(
                                           width: 48.0,
                                           height: 48.0,
-                                          decoration: const BoxDecoration(),
+                                          decoration: BoxDecoration(),
                                           child: Icon(
                                             Icons.bookmark,
                                             color: FlutterFlowTheme.of(context)
@@ -465,7 +466,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -490,7 +491,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                       return Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: SizedBox(
+                                        child: Container(
                                           height: MediaQuery.sizeOf(context)
                                                   .height *
                                               0.45,
@@ -507,7 +508,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                 child: Container(
                                   width: 48.0,
                                   height: 48.0,
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: Icon(
                                     Icons.play_arrow,
                                     color:
@@ -526,8 +527,45 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          if ((widget.verseId > 0) && FFAppState().readingMode)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                FFAppState().lastRead = BookMarkStruct(
+                                  surahId: widget.suraId,
+                                  verseId: widget.verseId,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Verse saved to Last Read',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 48.0,
+                                decoration: BoxDecoration(),
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Icon(
+                                  Icons.menu_book_rounded,
+                                  color: FlutterFlowTheme.of(context).verseIcon,
+                                  size: 14.0,
+                                ),
+                              ),
+                            ),
                           Align(
-                            alignment: const AlignmentDirectional(1.0, 0.0),
+                            alignment: AlignmentDirectional(1.0, 0.0),
                             child: RichText(
                               textScaler: MediaQuery.of(context).textScaler,
                               text: TextSpan(
@@ -536,7 +574,7 @@ class _QuranSuraVerseWidgetState extends State<QuranSuraVerseWidget> {
                                     text: widget.verseId > 0
                                         ? widget.verseId.toString()
                                         : '',
-                                    style: const TextStyle(),
+                                    style: TextStyle(),
                                   )
                                 ],
                                 style: FlutterFlowTheme.of(context)

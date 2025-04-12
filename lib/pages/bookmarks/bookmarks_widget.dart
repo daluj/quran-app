@@ -14,6 +14,9 @@ export 'bookmarks_model.dart';
 class BookmarksWidget extends StatefulWidget {
   const BookmarksWidget({super.key});
 
+  static String routeName = 'bookmarks';
+  static String routePath = '/bookmarks';
+
   @override
   State<BookmarksWidget> createState() => _BookmarksWidgetState();
 }
@@ -96,7 +99,7 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                           FlutterFlowTheme.of(context).headlineMediumFamily),
                     ),
               ),
-              actions: const [],
+              actions: [],
               centerTitle: true,
               elevation: 0.0,
             ),
@@ -109,13 +112,13 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                     FlutterFlowTheme.of(context).primary,
                     FlutterFlowTheme.of(context).secondary
                   ],
-                  stops: const [0.0, 1.0],
-                  begin: const AlignmentDirectional(0.0, -1.0),
-                  end: const AlignmentDirectional(0, 1.0),
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +148,7 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                           final listViewGetCollectionVersesRowList =
                               snapshot.data!;
                           if (listViewGetCollectionVersesRowList.isEmpty) {
-                            return const Center(
+                            return Center(
                               child: EmptyResultsWidget(
                                 message: 'Bookmarked verses will appear here',
                                 title: 'No Verses Saved',
@@ -154,7 +157,7 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                           }
 
                           return ListView.separated(
-                            padding: const EdgeInsets.fromLTRB(
+                            padding: EdgeInsets.fromLTRB(
                               0,
                               0,
                               0,
@@ -163,13 +166,13 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                             scrollDirection: Axis.vertical,
                             itemCount:
                                 listViewGetCollectionVersesRowList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 12.0),
                             itemBuilder: (context, listViewIndex) {
                               final listViewGetCollectionVersesRow =
                                   listViewGetCollectionVersesRowList[
                                       listViewIndex];
                               return Stack(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
+                                alignment: AlignmentDirectional(1.0, 1.0),
                                 children: [
                                   wrapWithModel(
                                     model: _model.quranVersesModels.getModel(
@@ -193,8 +196,8 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 16.0, 12.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 12.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -208,8 +211,8 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                                                       (alertDialogContext) {
                                                     return AlertDialog(
                                                       title:
-                                                          const Text('Delete Verse'),
-                                                      content: const Text(
+                                                          Text('Delete Verse'),
+                                                      content: Text(
                                                           'Are you sure you want to delete this verse?'),
                                                       actions: [
                                                         TextButton(
@@ -217,14 +220,14 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                                                               Navigator.pop(
                                                                   alertDialogContext,
                                                                   false),
-                                                          child: const Text('No'),
+                                                          child: Text('No'),
                                                         ),
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   alertDialogContext,
                                                                   true),
-                                                          child: const Text('Yes'),
+                                                          child: Text('Yes'),
                                                         ),
                                                       ],
                                                     );

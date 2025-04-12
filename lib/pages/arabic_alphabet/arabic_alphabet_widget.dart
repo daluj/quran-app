@@ -12,6 +12,9 @@ export 'arabic_alphabet_model.dart';
 class ArabicAlphabetWidget extends StatefulWidget {
   const ArabicAlphabetWidget({super.key});
 
+  static String routeName = 'arabicAlphabet';
+  static String routePath = '/arabicAlphabet';
+
   @override
   State<ArabicAlphabetWidget> createState() => _ArabicAlphabetWidgetState();
 }
@@ -71,7 +74,7 @@ class _ArabicAlphabetWidgetState extends State<ArabicAlphabetWidget> {
                       FlutterFlowTheme.of(context).headlineSmallFamily),
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -84,9 +87,9 @@ class _ArabicAlphabetWidgetState extends State<ArabicAlphabetWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Column(
@@ -95,7 +98,7 @@ class _ArabicAlphabetWidgetState extends State<ArabicAlphabetWidget> {
               Flexible(
                 child: Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
                   child: FutureBuilder<List<GetNamesByTypeRow>>(
                     future: SQLiteManager.instance.getNamesByType(
                       type: 'alphabet',
@@ -119,7 +122,7 @@ class _ArabicAlphabetWidgetState extends State<ArabicAlphabetWidget> {
 
                       return GridView.builder(
                         padding: EdgeInsets.zero,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
                           crossAxisSpacing: 5.0,
                           mainAxisSpacing: 5.0,
@@ -208,7 +211,7 @@ class _ArabicAlphabetWidgetState extends State<ArabicAlphabetWidget> {
                   ),
                 ),
               ),
-            ].addToEnd(const SizedBox(height: 18.0)),
+            ].addToEnd(SizedBox(height: 18.0)),
           ),
         ),
       ),

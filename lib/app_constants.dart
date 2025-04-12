@@ -15,7 +15,8 @@ abstract class FFAppConstants {
     '2:186',
     '3:38',
     '14:39',
-    '14:40'
+    '14:40',
+    '1:5'
   ];
   static const List<String> learnArabicVerses = [
     '96:1',
@@ -95,4 +96,15 @@ abstract class FFAppConstants {
   static const String wbwAudioUrl =
       'https://audios.quranwbw.com/words/\${surah_id}/\${surah_id0}_\${verse_id}_\${position_id}.mp3?version=2';
   static const String featurebaseURL = 'https://dawnquran.featurebase.app/';
+  static const String PlayStoreAppLink =
+      'https://play.google.com/store/apps/details?id=com.dljsolutions.dawn';
+  static const List<String> callGod = [
+    '2:186',
+    '7:55',
+    '7:180',
+    '10:10',
+    '42:51',
+    '17:110'
+  ];
+  static const List<String> goals = ['18:23', '18:24'];
 }

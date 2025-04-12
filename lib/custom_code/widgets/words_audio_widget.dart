@@ -1,5 +1,6 @@
 // Automatic FlutterFlow imports
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -12,6 +13,10 @@ import 'package:flutter/material.dart';
 
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:audio_session/audio_session.dart';
 
 class WordsAudioWidget extends StatefulWidget {
   const WordsAudioWidget({
@@ -35,7 +40,6 @@ class WordsAudioWidget extends StatefulWidget {
   final Color secondaryColor;
   final String errorMessage;
 
-  // Font customization
   final double arabicFontSize;
   final String? arabicFontFamily;
   final double transliterationFontSize;
@@ -49,39 +53,95 @@ class _WordsAudioWidgetState extends State<WordsAudioWidget> {
   final _player = AudioPlayer();
   String? _error;
   int _currentIndex = 0;
-  bool _autoPlay = false; // Toggle for automatic playback
-  bool _loopPlayback = false; // Toggle for looping playback
+  bool _autoPlay = false;
+  bool _loopPlayback = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
+    _initAudioSession();
     _loadAudio(_currentIndex);
     _player.playerStateStream.listen((state) {
       if (_autoPlay && state.processingState == ProcessingState.completed) {
-        _playNext();
+        Future.delayed(Duration(seconds: FFAppState().wordSpaceSeconds), () {
+          if (mounted) {
+            _playNext();
+          }
+        });
       }
     });
+  }
+
+  Future<void> _initAudioSession() async {
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.music());
+  }
+
+  Future<String?> _getCachedAudioPath(String url) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final filename = url.split('/').last;
+    final filePath = '${dir.path}/$filename';
+    final file = File(filePath);
+
+    if (await file.exists()) {
+      return filePath;
+    } else if (FFAppState().downloadAudio) {
+      try {
+        await Dio().download(url, filePath);
+        return filePath;
+      } catch (e) {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
 
   Future<void> _loadAudio(int index) async {
     final audioUrl = widget.audioList[index].audioUrl;
 
     if (audioUrl == null || audioUrl.isEmpty) {
+      if (!mounted) return;
       setState(() {
-        _error = "Audio URL is missing.";
+        _error =
+            "Could not load audio. Check your internet connection or enable download mode.";
+        _isLoading = false;
       });
       return;
     }
 
+    if (!mounted) return;
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
     try {
-      await _player.setAudioSource(AudioSource.uri(Uri.parse(audioUrl)));
-      await _player.play();
+      final cachedPath = await _getCachedAudioPath(audioUrl);
+      if (!mounted) return;
+
+      if (cachedPath != null) {
+        await _player.setFilePath(cachedPath);
+        await _player.play();
+      } else {
+        await _player.setUrl(audioUrl);
+        await _player.play();
+      }
+
+      if (!mounted) return;
       setState(() {
         _error = null;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
-        _error = "Error loading audio: $e";
+        _error = widget.errorMessage;
+      });
+    } finally {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
       });
     }
   }
@@ -132,6 +192,7 @@ class _WordsAudioWidgetState extends State<WordsAudioWidget> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
@@ -163,84 +224,108 @@ class _WordsAudioWidgetState extends State<WordsAudioWidget> {
           ],
         ),
         body: SafeArea(
-          child: Center(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                if (_error != null) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 12),
+                  child: Text(
+                    currentAudio.arabicText ?? "",
+                    style: TextStyle(
+                      fontSize: widget.arabicFontSize,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: widget.arabicFontFamily,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                    textHeightBehavior: TextHeightBehavior(
+                      applyHeightToFirstAscent: false,
+                      applyHeightToLastDescent: false,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    currentAudio.transliteration ?? "",
+                    style: TextStyle(
+                      fontSize: widget.transliterationFontSize,
+                      fontFamily: widget.transliterationFontFamily,
+                      color: widget.secondaryColor,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.skip_previous,
+                              color: widget.primaryColor),
+                          iconSize: 24,
+                          onPressed: _currentIndex > 0 ? _playPrevious : null,
+                        ),
+                        Text("Previous Word",
+                            style: TextStyle(color: widget.primaryColor)),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 300),
+                        child: _isLoading
+                            ? SizedBox(
+                                key: ValueKey('loading'),
+                                height: 36,
+                                width: 36,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 4,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      widget.primaryColor),
+                                ),
+                              )
+                            : IconButton(
+                                key: ValueKey('replayIcon'),
+                                icon: Icon(Icons.replay,
+                                    color: widget.primaryColor),
+                                iconSize: 36,
+                                onPressed: _repeatCurrentAudio,
+                              ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          icon:
+                              Icon(Icons.skip_next, color: widget.primaryColor),
+                          iconSize: 24,
+                          onPressed:
+                              _currentIndex < widget.audioList.length - 1 ||
+                                      _loopPlayback
+                                  ? _playNext
+                                  : null,
+                        ),
+                        Text("Next Word",
+                            style: TextStyle(color: widget.primaryColor)),
+                      ],
+                    ),
+                  ],
+                ),
+                if (_error != null)
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(top: 12.0),
                     child: Text(
                       _error!,
                       style: TextStyle(color: Colors.red, fontSize: 16),
-                    ),
-                  ),
-                ] else ...[
-                  Flexible(
-                    child: Text(
-                      currentAudio.arabicText ?? "",
-                      style: TextStyle(
-                        fontSize: widget.arabicFontSize,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: widget.arabicFontFamily,
-                        color: widget.primaryColor,
-                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Flexible(
-                    child: Text(
-                      currentAudio.transliteration ?? "",
-                      style: TextStyle(
-                        fontSize: widget.transliterationFontSize,
-                        fontFamily: widget.transliterationFontFamily,
-                        color: widget.secondaryColor,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.skip_previous,
-                                color: widget.primaryColor),
-                            iconSize: 36,
-                            onPressed: _currentIndex > 0 ? _playPrevious : null,
-                          ),
-                          Text("Previous Word",
-                              style: TextStyle(color: widget.primaryColor)),
-                        ],
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.replay, color: widget.primaryColor),
-                        iconSize: 64,
-                        onPressed: _repeatCurrentAudio,
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.skip_next,
-                                color: widget.primaryColor),
-                            iconSize: 36,
-                            onPressed:
-                                _currentIndex < widget.audioList.length - 1 ||
-                                        _loopPlayback
-                                    ? _playNext
-                                    : null,
-                          ),
-                          Text("Next Word",
-                              style: TextStyle(color: widget.primaryColor)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
               ],
             ),
           ),

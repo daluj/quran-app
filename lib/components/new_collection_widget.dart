@@ -50,7 +50,7 @@ class _NewCollectionWidgetState extends State<NewCollectionWidget> {
     return Material(
       color: Colors.transparent,
       elevation: 5.0,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
@@ -60,16 +60,8 @@ class _NewCollectionWidgetState extends State<NewCollectionWidget> {
       ),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              FlutterFlowTheme.of(context).primary,
-              FlutterFlowTheme.of(context).tertiary
-            ],
-            stops: const [0.0, 1.0],
-            begin: const AlignmentDirectional(0.0, -1.0),
-            end: const AlignmentDirectional(0, 1.0),
-          ),
-          borderRadius: const BorderRadius.only(
+          color: FlutterFlowTheme.of(context).secondary,
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
             topLeft: Radius.circular(16.0),
@@ -77,14 +69,14 @@ class _NewCollectionWidgetState extends State<NewCollectionWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 18.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 18.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,13 +97,13 @@ class _NewCollectionWidgetState extends State<NewCollectionWidget> {
                       ),
                       Flexible(
                         child: Align(
-                          alignment: const AlignmentDirectional(1.0, 0.0),
+                          alignment: AlignmentDirectional(1.0, 0.0),
                           child: FlutterFlowIconButton(
                             borderRadius: 8.0,
                             buttonSize: 40.0,
                             icon: FaIcon(
                               FontAwesomeIcons.save,
-                              color: FlutterFlowTheme.of(context).info,
+                              color: FlutterFlowTheme.of(context).secondaryText,
                               size: 24.0,
                             ),
                             onPressed: () async {
@@ -127,12 +119,12 @@ class _NewCollectionWidgetState extends State<NewCollectionWidget> {
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      content: const Text('Please provide a title'),
+                                      content: Text('Please provide a title'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(alertDialogContext),
-                                          child: const Text('Ok'),
+                                          child: Text('Ok'),
                                         ),
                                       ],
                                     );
@@ -223,7 +215,7 @@ class _NewCollectionWidgetState extends State<NewCollectionWidget> {
                   validator:
                       _model.titleTextControllerValidator.asValidator(context),
                 ),
-              ].divide(const SizedBox(height: 12.0)),
+              ].divide(SizedBox(height: 12.0)),
             ),
           ),
         ),

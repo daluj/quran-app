@@ -1,11 +1,18 @@
 import '/backend/sqlite/sqlite_manager.dart';
 import '/components/empty_results_widget.dart';
 import '/components/new_collection_widget.dart';
+import '/components/profile_component_widget.dart';
+import '/components/quran_settings_widget.dart';
+import '/components/words_player_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'explore_model.dart';
 export 'explore_model.dart';
 
@@ -13,9 +20,12 @@ class ExploreWidget extends StatefulWidget {
   const ExploreWidget({
     super.key,
     int? initialTab,
-  }) : initialTab = initialTab ?? 0;
+  }) : this.initialTab = initialTab ?? 0;
 
   final int initialTab;
+
+  static String routeName = 'Explore';
+  static String routePath = '/explore';
 
   @override
   State<ExploreWidget> createState() => _ExploreWidgetState();
@@ -41,6 +51,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -63,9 +75,9 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                   },
                   child: Padding(
                     padding: MediaQuery.viewInsetsOf(context),
-                    child: SizedBox(
+                    child: Container(
                       height: MediaQuery.sizeOf(context).height * 0.36,
-                      child: const NewCollectionWidget(
+                      child: NewCollectionWidget(
                         type: 'user',
                       ),
                     ),
@@ -82,26 +94,57 @@ class _ExploreWidgetState extends State<ExploreWidget> {
             size: 24.0,
           ),
         ),
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.8,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    FlutterFlowTheme.of(context).primary,
+                    FlutterFlowTheme.of(context).secondary
+                  ],
+                  stops: [0.0, 1.0],
+                  begin: AlignmentDirectional(0.0, -1.0),
+                  end: AlignmentDirectional(0, 1.0),
+                ),
+              ),
+              child: wrapWithModel(
+                model: _model.profileComponentModel,
+                updateCallback: () => safeSetState(() {}),
+                child: ProfileComponentWidget(),
+              ),
+            ),
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderRadius: 8.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.menu_rounded,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              scaffoldKey.currentState!.openDrawer();
+            },
+          ),
           title: InkWell(
             splashColor: Colors.transparent,
             focusColor: Colors.transparent,
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.pushNamed('search');
+              context.pushNamed(SearchWidget.routeName);
             },
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.search_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 24.0,
-                ),
                 Text(
                   'Search Quran...',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -113,10 +156,43 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                             FlutterFlowTheme.of(context).bodyMediumFamily),
                       ),
                 ),
-              ].divide(const SizedBox(width: 10.0)),
+              ].divide(SizedBox(width: 10.0)),
             ),
           ),
-          actions: const [],
+          actions: [
+            FlutterFlowIconButton(
+              borderRadius: 8.0,
+              buttonSize: 60.0,
+              icon: Icon(
+                Icons.settings,
+                color: FlutterFlowTheme.of(context).primaryText,
+                size: 24.0,
+              ),
+              onPressed: () async {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  context: context,
+                  builder: (context) {
+                    return GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: Container(
+                          height: MediaQuery.sizeOf(context).height * 0.6,
+                          child: QuranSettingsWidget(),
+                        ),
+                      ),
+                    );
+                  },
+                ).then((value) => safeSetState(() {}));
+              },
+            ),
+          ],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -129,13 +205,13 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).secondary
               ],
-              stops: const [0.0, 1.0],
-              begin: const AlignmentDirectional(0.0, -1.0),
-              end: const AlignmentDirectional(0, 1.0),
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -166,27 +242,22 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                   ),
                                 );
                               }
-                              final gridViewGetCollectionsByTypeRowList =
+                              final listViewGetCollectionsByTypeRowList =
                                   snapshot.data!;
 
-                              return GridView.builder(
+                              return ListView.separated(
                                 padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 10.0,
-                                  mainAxisSpacing: 10.0,
-                                  childAspectRatio: 2.0,
-                                ),
                                 primary: false,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount:
-                                    gridViewGetCollectionsByTypeRowList.length,
-                                itemBuilder: (context, gridViewIndex) {
-                                  final gridViewGetCollectionsByTypeRow =
-                                      gridViewGetCollectionsByTypeRowList[
-                                          gridViewIndex];
+                                    listViewGetCollectionsByTypeRowList.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 8.0),
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewGetCollectionsByTypeRow =
+                                      listViewGetCollectionsByTypeRowList[
+                                          listViewIndex];
                                   return InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -194,37 +265,37 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       context.pushNamed(
-                                        'editCollection',
+                                        EditCollectionWidget.routeName,
                                         queryParameters: {
                                           'collection': serializeParam(
-                                            gridViewGetCollectionsByTypeRow,
+                                            listViewGetCollectionsByTypeRow,
                                             ParamType.SqliteRow,
                                           ),
                                         }.withoutNulls,
                                       );
                                     },
-                                    child: Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      elevation: 0.0,
-                                      shape: RoundedRectangleBorder(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         borderRadius:
-                                            BorderRadius.circular(8.0),
+                                            BorderRadius.circular(10.0),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Flexible(
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6.0, 0.0, 6.0, 3.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(6.0, 6.0, 6.0, 6.0),
                                               child: Text(
-                                                gridViewGetCollectionsByTypeRow
+                                                listViewGetCollectionsByTypeRow
                                                     .title,
                                                 textAlign: TextAlign.justify,
                                                 style:
@@ -251,74 +322,75 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                         ),
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    6.0, 0.0, 0.0, 6.0),
-                                            child: RichText(
-                                              textScaler: MediaQuery.of(context)
-                                                  .textScaler,
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        valueOrDefault<String>(
-                                                      gridViewGetCollectionsByTypeRow
-                                                          .totalVerses
-                                                          .toString(),
-                                                      '0',
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(6.0, 0.0, 0.0, 6.0),
+                                              child: RichText(
+                                                textScaler:
+                                                    MediaQuery.of(context)
+                                                        .textScaler,
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: valueOrDefault<
+                                                          String>(
+                                                        listViewGetCollectionsByTypeRow
+                                                            .totalVerses
+                                                            .toString(),
+                                                        '0',
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
                                                     ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                                  ),
-                                                  const TextSpan(
-                                                    text: ' Verses',
-                                                    style: TextStyle(),
-                                                  )
-                                                ],
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
+                                                    TextSpan(
+                                                      text: ' Verses',
+                                                      style: TextStyle(),
+                                                    )
+                                                  ],
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -343,63 +415,351 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Flexible(
-                          child: FutureBuilder<List<GetCollectionsByTypeRow>>(
-                            future: SQLiteManager.instance.getCollectionsByType(
-                              type: 'calling',
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: SpinKitDoubleBounce(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 50.0,
-                                    ),
-                                  ),
-                                );
-                              }
-                              final containerGetCollectionsByTypeRowList =
-                                  snapshot.data!;
-
-                              return InkWell(
+                        Expanded(
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            primary: false,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  if (containerGetCollectionsByTypeRowList
-                                      .isNotEmpty) {
-                                    context.pushNamed(
-                                      'editCollection',
-                                      queryParameters: {
-                                        'collection': serializeParam(
-                                          containerGetCollectionsByTypeRowList
-                                              .firstOrNull,
-                                          ParamType.SqliteRow,
+                                  _model.audioList = await actions
+                                      .createQuranInitialsAudioList(
+                                    FFAppState().QuranInitials.toList(),
+                                  );
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          FocusScope.of(context).unfocus();
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
+                                        },
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: Container(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.45,
+                                            child: WordsPlayerWidget(
+                                              audioList: _model.audioList,
+                                            ),
+                                          ),
                                         ),
-                                      }.withoutNulls,
-                                    );
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
 
-                                    return;
-                                  } else {
-                                    return;
-                                  }
+                                  safeSetState(() {});
                                 },
                                 child: Container(
-                                  width: double.infinity,
-                                  height: 90.0,
                                   decoration: BoxDecoration(
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
+                                    padding: EdgeInsets.all(9.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Quran Initials ',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelLarge
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLargeFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeFamily),
+                                              ),
+                                        ),
+                                      ].divide(SizedBox(height: 12.0)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed(
+                                      BeautifulNamesWidget.routeName);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(9.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Beautiful Names',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelLarge
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLargeFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeFamily),
+                                              ),
+                                        ),
+                                      ].divide(SizedBox(height: 12.0)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              FutureBuilder<List<GetCollectionsByTypeRow>>(
+                                future:
+                                    SQLiteManager.instance.getCollectionsByType(
+                                  type: 'calling',
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitDoubleBounce(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 50.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final containerGetCollectionsByTypeRowList =
+                                      snapshot.data!;
+
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (containerGetCollectionsByTypeRowList
+                                          .isNotEmpty) {
+                                        context.pushNamed(
+                                          EditCollectionWidget.routeName,
+                                          queryParameters: {
+                                            'collection': serializeParam(
+                                              containerGetCollectionsByTypeRowList
+                                                  .firstOrNull,
+                                              ParamType.SqliteRow,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+
+                                        return;
+                                      } else {
+                                        return;
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(6.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Calling Upon God',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLargeFamily,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    useGoogleFonts: GoogleFonts
+                                                            .asMap()
+                                                        .containsKey(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLargeFamily),
+                                                  ),
+                                            ),
+                                            RichText(
+                                              textScaler: MediaQuery.of(context)
+                                                  .textScaler,
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text:
+                                                        valueOrDefault<String>(
+                                                      containerGetCollectionsByTypeRowList
+                                                              .isNotEmpty
+                                                          ? containerGetCollectionsByTypeRowList
+                                                              .firstOrNull
+                                                              ?.totalVerses
+                                                              .toString()
+                                                          : '0',
+                                                      '0',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  ),
+                                                  TextSpan(
+                                                    text: ' Verses',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                                  )
+                                                ],
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
+                                            ),
+                                          ].divide(SizedBox(height: 6.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed(
+                                    VersesWidget.routeName,
+                                    queryParameters: {
+                                      'surahVersesList': serializeParam(
+                                        FFAppConstants.recitationsVerses,
+                                        ParamType.String,
+                                        isList: true,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(6.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -408,7 +768,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Calling Upon God',
+                                          'Quran Recitation',
                                           style: FlutterFlowTheme.of(context)
                                               .labelLarge
                                               .override(
@@ -435,16 +795,9 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
-                                                text: valueOrDefault<String>(
-                                                  containerGetCollectionsByTypeRowList
-                                                          .isNotEmpty
-                                                      ? containerGetCollectionsByTypeRowList
-                                                          .firstOrNull
-                                                          ?.totalVerses
-                                                          .toString()
-                                                      : '0',
-                                                  '0',
-                                                ),
+                                                text: FFAppConstants
+                                                    .recitationsVerses.length
+                                                    .toString(),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -513,111 +866,15 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                 ),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(height: 12.0)),
+                                      ].divide(SizedBox(height: 6.0)),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                            ].divide(SizedBox(height: 8.0)),
                           ),
                         ),
-                        Flexible(
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('beautifulNames');
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 90.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Beautiful Names',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLargeFamily,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily),
-                                          ),
-                                    ),
-                                  ].divide(const SizedBox(height: 12.0)),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('quranInitials');
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 90.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Quran Initials ',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLargeFamily,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily),
-                                          ),
-                                    ),
-                                  ].divide(const SizedBox(height: 12.0)),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ].divide(const SizedBox(width: 15.0)),
+                      ].divide(SizedBox(width: 15.0)),
                     ),
                   ),
                   Opacity(
@@ -644,10 +901,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(
+                        Expanded(
                           child: FutureBuilder<List<GetCollectionsByTypeRow>>(
                             future: SQLiteManager.instance.getCollectionsByType(
-                              type: 'reverent',
+                              type: 'conduct',
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -664,110 +921,89 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                   ),
                                 );
                               }
-                              final containerGetCollectionsByTypeRowList =
+                              final listViewGetCollectionsByTypeRowList =
                                   snapshot.data!;
 
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  if (containerGetCollectionsByTypeRowList
-                                      .isNotEmpty) {
-                                    context.pushNamed(
-                                      'search',
-                                      queryParameters: {
-                                        'searchText': serializeParam(
-                                          containerGetCollectionsByTypeRowList
-                                              .firstOrNull?.title,
-                                          ParamType.String,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Reverent',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount:
+                                    listViewGetCollectionsByTypeRowList.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 8.0),
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewGetCollectionsByTypeRow =
+                                      listViewGetCollectionsByTypeRowList[
+                                          listViewIndex];
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        EditCollectionWidget.routeName,
+                                        queryParameters: {
+                                          'collection': serializeParam(
+                                            listViewGetCollectionsByTypeRow,
+                                            ParamType.SqliteRow,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(6.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              listViewGetCollectionsByTypeRow
+                                                  .title,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .labelLargeFamily),
-                                              ),
-                                        ),
-                                        FutureBuilder<List<SearchTextCountRow>>(
-                                          future: SQLiteManager.instance
-                                              .searchTextCount(
-                                            searchText:
-                                                containerGetCollectionsByTypeRowList
-                                                    .firstOrNull!.title,
-                                            translationCode: 'en',
-                                          ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child: SpinKitDoubleBounce(
+                                                            .labelLargeFamily,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryText,
-                                                    size: 50.0,
+                                                        .secondaryText,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    useGoogleFonts: GoogleFonts
+                                                            .asMap()
+                                                        .containsKey(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLargeFamily),
                                                   ),
-                                                ),
-                                              );
-                                            }
-                                            final richTextSearchTextCountRowList =
-                                                snapshot.data!;
-
-                                            return RichText(
+                                            ),
+                                            RichText(
                                               textScaler: MediaQuery.of(context)
                                                   .textScaler,
                                               text: TextSpan(
                                                 children: [
                                                   TextSpan(
                                                     text:
-                                                        valueOrDefault<String>(
-                                                      richTextSearchTextCountRowList
-                                                              .isNotEmpty
-                                                          ? richTextSearchTextCountRowList
-                                                              .firstOrNull
-                                                              ?.totalResults
-                                                              .toString()
-                                                          : '0',
-                                                      '0',
-                                                    ),
+                                                        listViewGetCollectionsByTypeRow
+                                                            .totalVerses
+                                                            .toString(),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -833,356 +1069,18 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                       .bodyMediumFamily),
                                                         ),
                                               ),
-                                            );
-                                          },
+                                            ),
+                                          ].divide(SizedBox(height: 12.0)),
                                         ),
-                                      ].divide(const SizedBox(height: 12.0)),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: FutureBuilder<List<GetCollectionsByTypeRow>>(
-                            future: SQLiteManager.instance.getCollectionsByType(
-                              type: 'righteous',
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: SpinKitDoubleBounce(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 50.0,
-                                    ),
-                                  ),
-                                );
-                              }
-                              final containerGetCollectionsByTypeRowList =
-                                  snapshot.data!;
-
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  if (containerGetCollectionsByTypeRowList
-                                      .isNotEmpty) {
-                                    context.pushNamed(
-                                      'editCollection',
-                                      queryParameters: {
-                                        'collection': serializeParam(
-                                          containerGetCollectionsByTypeRowList
-                                              .firstOrNull,
-                                          ParamType.SqliteRow,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  }
+                                  );
                                 },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Righteous',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelLargeFamily),
-                                              ),
-                                        ),
-                                        RichText(
-                                          textScaler:
-                                              MediaQuery.of(context).textScaler,
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: valueOrDefault<String>(
-                                                  containerGetCollectionsByTypeRowList
-                                                          .isNotEmpty
-                                                      ? containerGetCollectionsByTypeRowList
-                                                          .firstOrNull
-                                                          ?.totalVerses
-                                                          .toString()
-                                                      : '0',
-                                                  '0',
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              ),
-                                              TextSpan(
-                                                text: ' Verses',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              )
-                                            ],
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  fontSize: 12.0,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMediumFamily),
-                                                ),
-                                          ),
-                                        ),
-                                      ].divide(const SizedBox(height: 12.0)),
-                                    ),
-                                  ),
-                                ),
                               );
                             },
                           ),
                         ),
-                        Expanded(
-                          child: FutureBuilder<List<GetCollectionsByTypeRow>>(
-                            future: SQLiteManager.instance.getCollectionsByType(
-                              type: 'believers',
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: SpinKitDoubleBounce(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 50.0,
-                                    ),
-                                  ),
-                                );
-                              }
-                              final containerGetCollectionsByTypeRowList =
-                                  snapshot.data!;
-
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  if (containerGetCollectionsByTypeRowList
-                                      .isNotEmpty) {
-                                    context.pushNamed(
-                                      'editCollection',
-                                      queryParameters: {
-                                        'collection': serializeParam(
-                                          containerGetCollectionsByTypeRowList
-                                              .firstOrNull,
-                                          ParamType.SqliteRow,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Believers',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelLargeFamily),
-                                              ),
-                                        ),
-                                        RichText(
-                                          textScaler:
-                                              MediaQuery.of(context).textScaler,
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: valueOrDefault<String>(
-                                                  containerGetCollectionsByTypeRowList
-                                                          .isNotEmpty
-                                                      ? containerGetCollectionsByTypeRowList
-                                                          .firstOrNull
-                                                          ?.totalVerses
-                                                          .toString()
-                                                      : '0',
-                                                  '0',
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              ),
-                                              TextSpan(
-                                                text: ' Verses',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              )
-                                            ],
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  fontSize: 12.0,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMediumFamily),
-                                                ),
-                                          ),
-                                        ),
-                                      ].divide(const SizedBox(height: 12.0)),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ].divide(const SizedBox(width: 15.0)),
+                      ].divide(SizedBox(width: 15.0)),
                     ),
                   ),
                   Opacity(
@@ -1228,10 +1126,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                 ),
                               );
                             }
-                            final wrapGetCollectionsByTypeRowList =
+                            final listViewGetCollectionsByTypeRowList =
                                 snapshot.data!;
-                            if (wrapGetCollectionsByTypeRowList.isEmpty) {
-                              return const Center(
+                            if (listViewGetCollectionsByTypeRowList.isEmpty) {
+                              return Center(
                                 child: EmptyResultsWidget(
                                   message: 'Create custom collections',
                                   title: 'No Collections',
@@ -1239,20 +1137,17 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                               );
                             }
 
-                            return Wrap(
-                              spacing: 0.0,
-                              runSpacing: 0.0,
-                              alignment: WrapAlignment.start,
-                              crossAxisAlignment: WrapCrossAlignment.start,
-                              direction: Axis.horizontal,
-                              runAlignment: WrapAlignment.start,
-                              verticalDirection: VerticalDirection.down,
-                              clipBehavior: Clip.none,
-                              children: List.generate(
-                                  wrapGetCollectionsByTypeRowList.length,
-                                  (wrapIndex) {
-                                final wrapGetCollectionsByTypeRow =
-                                    wrapGetCollectionsByTypeRowList[wrapIndex];
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount:
+                                  listViewGetCollectionsByTypeRowList.length,
+                              itemBuilder: (context, listViewIndex) {
+                                final listViewGetCollectionsByTypeRow =
+                                    listViewGetCollectionsByTypeRowList[
+                                        listViewIndex];
                                 return InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -1260,10 +1155,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     context.pushNamed(
-                                      'editCollection',
+                                      EditCollectionWidget.routeName,
                                       queryParameters: {
                                         'collection': serializeParam(
-                                          wrapGetCollectionsByTypeRow,
+                                          listViewGetCollectionsByTypeRow,
                                           ParamType.SqliteRow,
                                         ),
                                       }.withoutNulls,
@@ -1286,10 +1181,11 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   6.0, 6.0, 6.0, 6.0),
                                           child: Text(
-                                            wrapGetCollectionsByTypeRow.title,
+                                            listViewGetCollectionsByTypeRow
+                                                .title,
                                             textAlign: TextAlign.justify,
                                             style: FlutterFlowTheme.of(context)
                                                 .labelLarge
@@ -1314,7 +1210,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   6.0, 0.0, 6.0, 6.0),
                                           child: RichText(
                                             textScaler: MediaQuery.of(context)
@@ -1323,7 +1219,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                               children: [
                                                 TextSpan(
                                                   text: valueOrDefault<String>(
-                                                    wrapGetCollectionsByTypeRow
+                                                    listViewGetCollectionsByTypeRow
                                                         .totalVerses
                                                         .toString(),
                                                     '0',
@@ -1384,7 +1280,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                     ),
                                   ),
                                 );
-                              }),
+                              },
                             );
                           },
                         ),
@@ -1392,9 +1288,9 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                     ],
                   ),
                 ]
-                    .divide(const SizedBox(height: 12.0))
-                    .addToStart(const SizedBox(height: 12.0))
-                    .addToEnd(const SizedBox(height: 78.0)),
+                    .divide(SizedBox(height: 12.0))
+                    .addToStart(SizedBox(height: 12.0))
+                    .addToEnd(SizedBox(height: 78.0)),
               ),
             ),
           ),

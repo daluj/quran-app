@@ -1,5 +1,6 @@
 import '/components/quran_verses_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'beautiful_names_widget.dart' show BeautifulNamesWidget;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
